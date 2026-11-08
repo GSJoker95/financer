@@ -38,8 +38,8 @@ function render(){
 function rows(area,data,open,collection,label){if(!data.length){area.append(el('p','muted','Todavía no hay elementos. Utiliza el botón de añadir para empezar.'));return}
  for(const entry of data){const row=el('div','item');const actions=el('div','actions');const name=button(entry.name+(open?'  ›':''),'item-name',()=>{if(open)open(entry)});if(!open){name.disabled=true;name.style.color='#17263c'}actions.append(button('Editar','secondary',()=>openEditor(collection,label,entry)),button('Eliminar','danger',()=>removeItem(collection,entry)));row.append(name,actions);area.append(row)}
 }
-function openEditor(collection,label,entry=null){alert('La edición se habilitará cuando conectemos el guardado con Supabase.');return;}editTarget=entry;$('dialogTitle').textContent=(entry?'Editar ':'Añadir ')+label;$('itemName').value=entry?.name||'';$('editor').showModal();$('itemName').focus()}
-function removeItem(collection,entry){alert('La edición se habilitará cuando conectemos el guardado con Supabase.');return;}entry.children?.length?' También se eliminarán sus elementos interiores.':'';if(!confirm('¿Eliminar «'+entry.name+'»?'+warning))return;const i=collection.findIndex(x=>x.id===entry.id);if(i!==-1)collection.splice(i,1);render()}
+function openEditor(collection,label,entry=null){alert('La edición se habilitará cuando conectemos el guardado con Supabase.');return;}
+function removeItem(collection,entry){alert('La edición se habilitará cuando conectemos el guardado con Supabase.');return;}
 $('editorForm').addEventListener('submit',e=>{e.preventDefault();const name=$('itemName').value.trim();if(!name||!editorCollection)return;if(editTarget)editTarget.name=name;else editorCollection.push(makeItem(name));$('editor').close();render()});
 $('cancel').addEventListener('click',()=>$('editor').close());
 $('nav').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b)navigate(b.dataset.page)});
