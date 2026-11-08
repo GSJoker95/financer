@@ -5,3 +5,15 @@ const investmentTypes=['Bolsa','Crypto','Préstamos','Cuentas remuneradas'].map(
 const liquidityTypes=['Cuentas bancarias','Efectivo'].map(name=>makeItem(name));
 function makeItem(name){return {id:crypto.randomUUID(),name,children:[]}}
 const $=id=>document.getElementById(id);
+async function cargarBloquesSupabase() {
+  const { data, error } = await supabaseClient
+    .from('bloques')
+    .select('id, nombre, bloque_padre_id')
+    .order('nombre');
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
