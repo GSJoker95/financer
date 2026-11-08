@@ -315,8 +315,15 @@ function rows(area, data, open, collection, label) {
 }
 
 function openEditor(collection, label, entry = null) {
-  alert('La edición se habilitará cuando conectemos el guardado con Supabase.');
-  return;
+  editorCollection = collection;
+  editTarget = entry;
+
+  $('dialogTitle').textContent =
+    (entry ? 'Editar ' : 'Añadir ') + label;
+
+  $('itemName').value = entry?.name || '';
+  $('editor').showModal();
+  $('itemName').focus();
 }
 
 function removeItem(collection, entry) {
@@ -324,7 +331,49 @@ function removeItem(collection, entry) {
   return;
 }
 
-$('editorForm').addEventListener('submit', e => {
+$('editorForm').addEventListener('submit', async e => {
+  e.preventDefault();
+
+  const nombre = $('itemName').value.trim();
+  if (!nombre || !editorCollection) return;
+
+  const padre = editorCollection === liquidityTypes
+    ? 'Liquidez'
+    : editorCollection === investmentTypes
+      ? 'Inversiones'
+      : null;
+
+  if (!padre) {
+    alert('La gestión de plataformas y productos todavía no está habilitada.');
+    return;
+  }
+
+  const boton = $('editorForm').querySelector('[type="submit"]');
+  if (boton) boton.disabled = true;
+
+  try {
+    if (editTarget) {
+      await renombrarBloque(editTarget.id, nombre);
+    } else {
+      const bloques = await cargarBloquesSupabase();
+      const principal = bloques.find(
+        b => b.nombre === padre && b.bloque_padre_id === null
+      );
+
+      if (!principal) throw new Error('No se encuentra el bloque principal.');
+
+      await crearBloque(nombre, principal.id);
+    }
+
+    $('editor').close();
+    await actualizarBloques();
+  } catch (error) {
+    console.error('Error al guardar el bloque:', error);
+    alert('No se ha podido guardar el bloque. No cierres la ventana.');
+  } finally {
+    if (boton) boton.disabled = false;
+  }
+});
   e.preventDefault();
 
   const name = $('itemName').value.trim();
