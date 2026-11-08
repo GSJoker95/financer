@@ -281,7 +281,7 @@ function rows(area, data, open, collection, label) {
       ),
       button(
         'Eliminar', 'danger',
-        () => removeItem(collection, entry)
+        () => (collection, entry)
       )
     );
 
@@ -302,10 +302,28 @@ function openEditor(collection, label, entry = null) {
   $('itemName').focus();
 }
 
-function removeItem(collection, entry) {
-  alert(
-    'La eliminación se habilitará cuando comprobemos las relaciones con Supabase.'
+async function removeItem(collection, entry) {
+  if (collection !== liquidityTypes && collection !== investmentTypes) {
+    alert('La eliminación de plataformas y productos todavía no está habilitada.');
+    return;
+  }
+
+  const confirmado = confirm(
+    '¿Eliminar definitivamente «' + entry.name + '»?\n' +
+    'Esta acción no se puede deshacer.'
   );
+
+  if (!confirmado) return;
+
+  try {
+    await eliminarBloque(entry.id);
+    await actualizarBloques();
+  } catch (error) {
+    console.error('Error al eliminar el bloque:', error);
+    alert(
+      'No se ha podido eliminar el bloque. Puede tener elementos asociados.'
+    );
+  }
 }
 
 $('editorForm').addEventListener('submit', async e => {
