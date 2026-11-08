@@ -17,3 +17,26 @@ async function cargarBloquesSupabase() {
 
   return data;
 }
+function organizarBloques(bloques) {
+  const liquidez = bloques.find(
+    b => b.nombre === 'Liquidez' && b.bloque_padre_id === null
+  );
+
+  const inversiones = bloques.find(
+    b => b.nombre === 'Inversiones' && b.bloque_padre_id === null
+  );
+
+  if (!liquidez || !inversiones) {
+    throw new Error('Faltan los bloques principales.');
+  }
+
+  return {
+    liquidez: bloques
+      .filter(b => b.bloque_padre_id === liquidez.id)
+      .map(b => ({ id: b.id, name: b.nombre, children: [] })),
+
+    inversiones: bloques
+      .filter(b => b.bloque_padre_id === inversiones.id)
+      .map(b => ({ id: b.id, name: b.nombre, children: [] }))
+  };
+}
