@@ -1,8 +1,19 @@
 'use strict';
 // V1.7: datos de prueba únicamente en memoria. Se pierden al recargar.
 // El modelo permite crear nuevos tipos de inversión y bloques de liquidez.
-const investmentTypes=['Bolsa','Crypto','Préstamos','Cuentas remuneradas'].map(name=>makeItem(name));
-const liquidityTypes=['Cuentas bancarias','Efectivo'].map(name=>makeItem(name));
+let investmentTypes = [];
+let liquidityTypes = [];
+
+async function actualizarBloques() {
+  const bloques = await cargarBloquesSupabase();
+  const organizados = organizarBloques(bloques);
+
+  investmentTypes = organizados.inversiones;
+  liquidityTypes = organizados.liquidez;
+
+  render();
+}
+
 function makeItem(name){return {id:crypto.randomUUID(),name,children:[]}}
 const $=id=>document.getElementById(id);
 async function cargarBloquesSupabase() {
