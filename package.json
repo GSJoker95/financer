@@ -1,0 +1,16 @@
+{
+  "name": "financer",
+  "private": true,
+  "version": "1.8.9",
+  "description": "Base flexible de Financer, sin paso de compilación",
+  "scripts": {
+    "check": "node scripts/check-js.cjs",
+    "test": "node --test tests/modelo.test.cjs tests/datos.test.cjs",
+    "test:browser": "node tests/browser.cjs"
+  },
+  "engines": { "node": ">=20" },
+  "devDependencies": {
+    "@supabase/supabase-js": "2.95.3",
+    "playwright": "1.62.1"
+  }
+}
