@@ -21,12 +21,8 @@ function recuperarNavegacion() {
     if (!guardado) return;
 
     const paginas = [
-      'patrimonio',
-      'liquidez',
-      'inversiones',
-      'resultados',
-      'gastos',
-      'objetivos'
+      'patrimonio', 'liquidez', 'inversiones',
+      'resultados', 'gastos', 'objetivos'
     ];
 
     if (!paginas.includes(guardado.page)) return;
@@ -65,10 +61,8 @@ function navigate(next, typeId = null, platformId = null) {
   page = next;
   selectedType = typeId;
   selectedPlatform = platformId;
-
   guardarNavegacion();
   render();
-
   $('nav').classList.remove('open');
   $('mobileToggle').setAttribute('aria-expanded', 'false');
 }
@@ -86,7 +80,6 @@ function note(parent, message) {
 function render() {
   const area = $('content');
   area.replaceChildren();
-
   $('breadcrumb').replaceChildren();
   $('addButton').hidden = true;
 
@@ -100,7 +93,7 @@ function render() {
   };
 
   $('heading').textContent = titles[page] || 'Financer';
-  $('subtitle').textContent = 'Estructura de Financer · V1.8.7';
+  $('subtitle').textContent = 'Estructura de Financer · V1.8.8';
 
   document.querySelectorAll('#nav [data-page]').forEach(b => {
     b.classList.toggle('active', b.dataset.page === page);
@@ -128,23 +121,17 @@ function render() {
     area.append(grid);
 
     tile(
-      grid,
-      'Liquidez',
-      'Bloques de saldos disponibles',
+      grid, 'Liquidez', 'Bloques de saldos disponibles',
       () => navigate('liquidez')
     );
 
     tile(
-      grid,
-      'Inversiones',
-      'Tipos, plataformas y productos',
+      grid, 'Inversiones', 'Tipos, plataformas y productos',
       () => navigate('inversiones')
     );
 
     tile(
-      grid,
-      'Resultados',
-      'Dashboard pendiente',
+      grid, 'Resultados', 'Dashboard pendiente',
       () => navigate('resultados')
     );
 
@@ -158,17 +145,12 @@ function render() {
 
     $('addButton').hidden = false;
     $('addButton').textContent = '+ Añadir bloque';
-    $('addButton').onclick = () => openEditor(
-      liquidityTypes,
-      'bloque de liquidez'
-    );
+    $('addButton').onclick = () =>
+      openEditor(liquidityTypes, 'bloque de liquidez');
 
     rows(
-      area,
-      liquidityTypes,
-      null,
-      liquidityTypes,
-      'bloque de liquidez'
+      area, liquidityTypes, null,
+      liquidityTypes, 'bloque de liquidez'
     );
 
   } else if (page === 'inversiones') {
@@ -177,17 +159,13 @@ function render() {
 
       $('addButton').hidden = false;
       $('addButton').textContent = '+ Nuevo tipo';
-      $('addButton').onclick = () => openEditor(
-        investmentTypes,
-        'tipo de inversión'
-      );
+      $('addButton').onclick = () =>
+        openEditor(investmentTypes, 'tipo de inversión');
 
       rows(
-        area,
-        investmentTypes,
+        area, investmentTypes,
         t => navigate('inversiones', t.id),
-        investmentTypes,
-        'tipo de inversión'
+        investmentTypes, 'tipo de inversión'
       );
 
     } else {
@@ -209,17 +187,13 @@ function render() {
 
         $('addButton').hidden = false;
         $('addButton').textContent = '+ Nueva plataforma';
-        $('addButton').onclick = () => openEditor(
-          type.children,
-          'plataforma'
-        );
+        $('addButton').onclick = () =>
+          openEditor(type.children, 'plataforma');
 
         rows(
-          area,
-          type.children,
+          area, type.children,
           p => navigate('inversiones', type.id, p.id),
-          type.children,
-          'plataforma'
+          type.children, 'plataforma'
         );
 
       } else {
@@ -233,30 +207,27 @@ function render() {
         $('heading').textContent = platform.name;
 
         $('breadcrumb').append(
-          button(type.name, '', () => navigate('inversiones', type.id)),
+          button(
+            type.name, '',
+            () => navigate('inversiones', type.id)
+          ),
           ' / ' + platform.name
         );
 
         note(
           area,
-          'Los formularios específicos de ' +
-          type.name +
+          'Los formularios específicos de ' + type.name +
           ' se diseñarán de forma independiente en las siguientes versiones.'
         );
 
         $('addButton').hidden = false;
         $('addButton').textContent = '+ Nuevo producto';
-        $('addButton').onclick = () => openEditor(
-          platform.children,
-          'producto'
-        );
+        $('addButton').onclick = () =>
+          openEditor(platform.children, 'producto');
 
         rows(
-          area,
-          platform.children,
-          null,
-          platform.children,
-          'producto'
+          area, platform.children, null,
+          platform.children, 'producto'
         );
       }
     }
@@ -279,8 +250,7 @@ function rows(area, data, open, collection, label) {
   if (!data.length) {
     area.append(
       el(
-        'p',
-        'muted',
+        'p', 'muted',
         'Todavía no hay elementos. Utiliza el botón de añadir para empezar.'
       )
     );
@@ -305,8 +275,14 @@ function rows(area, data, open, collection, label) {
     }
 
     actions.append(
-      button('Editar', 'secondary', () => openEditor(collection, label, entry)),
-      button('Eliminar', 'danger', () => removeItem(collection, entry))
+      button(
+        'Editar', 'secondary',
+        () => openEditor(collection, label, entry)
+      ),
+      button(
+        'Eliminar', 'danger',
+        () => removeItem(collection, entry)
+      )
     );
 
     row.append(name, actions);
@@ -327,8 +303,9 @@ function openEditor(collection, label, entry = null) {
 }
 
 function removeItem(collection, entry) {
-  alert('La edición se habilitará cuando conectemos el guardado con Supabase.');
-  return;
+  alert(
+    'La eliminación se habilitará cuando comprobemos las relaciones con Supabase.'
+  );
 }
 
 $('editorForm').addEventListener('submit', async e => {
@@ -344,7 +321,9 @@ $('editorForm').addEventListener('submit', async e => {
       : null;
 
   if (!padre) {
-    alert('La gestión de plataformas y productos todavía no está habilitada.');
+    alert(
+      'La gestión de plataformas y productos todavía no está habilitada.'
+    );
     return;
   }
 
@@ -356,37 +335,29 @@ $('editorForm').addEventListener('submit', async e => {
       await renombrarBloque(editTarget.id, nombre);
     } else {
       const bloques = await cargarBloquesSupabase();
+
       const principal = bloques.find(
         b => b.nombre === padre && b.bloque_padre_id === null
       );
 
-      if (!principal) throw new Error('No se encuentra el bloque principal.');
+      if (!principal) {
+        throw new Error('No se encuentra el bloque principal.');
+      }
 
       await crearBloque(nombre, principal.id);
     }
 
     $('editor').close();
     await actualizarBloques();
+
   } catch (error) {
     console.error('Error al guardar el bloque:', error);
-    alert('No se ha podido guardar el bloque. No cierres la ventana.');
+    alert(
+      'No se ha podido completar la operación. Comprueba los datos antes de volver a intentarlo.'
+    );
   } finally {
     if (boton) boton.disabled = false;
   }
-});
-  e.preventDefault();
-
-  const name = $('itemName').value.trim();
-  if (!name || !editorCollection) return;
-
-  if (editTarget) {
-    editTarget.name = name;
-  } else {
-    editorCollection.push(makeItem(name));
-  }
-
-  $('editor').close();
-  render();
 });
 
 $('cancel').addEventListener('click', () => {
@@ -402,4 +373,6 @@ $('mobileToggle').addEventListener('click', () => {
   const open = $('nav').classList.toggle('open');
   $('mobileToggle').setAttribute('aria-expanded', String(open));
 });
+
+// La navegación se recupera al terminar de cargar Supabase.
 render();
