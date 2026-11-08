@@ -49,3 +49,19 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 });
 
 comprobarAcceso();
+
+document.getElementById('logoutButton').addEventListener('click', async () => {
+  const boton = document.getElementById('logoutButton');
+  boton.disabled = true;
+
+  try {
+    await cerrarSesion();
+    document.querySelector('.app').hidden = true;
+    document.getElementById('loginScreen').hidden = false;
+    document.getElementById('loginPassword').value = '';
+  } catch (error) {
+    alert('No se ha podido cerrar la sesión. Inténtalo de nuevo.');
+  } finally {
+    boton.disabled = false;
+  }
+});
