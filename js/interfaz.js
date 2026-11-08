@@ -1,10 +1,43 @@
 'use strict';
 let page='patrimonio',selectedType=null,selectedPlatform=null,editTarget=null,editorCollection=null;
+
+function guardarNavegacion() {
+  sessionStorage.setItem('financer_navegacion', JSON.stringify({
+    page,
+    selectedType,
+    selectedPlatform
+  }));
+}
+
+function recuperarNavegacion() {
+  try {
+    const guardado = JSON.parse(sessionStorage.getItem('financer_navegacion'));
+    if (!guardado) return;
+
+    const paginas = ['patrimonio','liquidez','inversiones','resultados','gastos','objetivos'];
+    if (!paginas.includes(guardado.page)) return;
+
+    page = guardado.page;
+    selectedType = guardado.selectedType ?? null;
+    selectedPlatform = guardado.selectedPlatform ?? null;
+  } catch (error) {
+    sessionStorage.removeItem('financer_navegacion');
+  }
+},selectedPlatform=null,editTarget=null,editorCollection=null;
 function el(tag,cls,text){const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x}
 function button(label,cls,action){const b=el('button',cls,label);b.type='button';b.addEventListener('click',action);return b}
 function typeById(){return investmentTypes.find(x=>x.id===selectedType)}
 function platformById(){return typeById()?.children.find(x=>x.id===selectedPlatform)}
-function navigate(next,typeId=null,platformId=null){page=next;selectedType=typeId;selectedPlatform=platformId;render();$('nav').classList.remove('open');$('mobileToggle').setAttribute('aria-expanded','false')}
+function navigate(next,typeId=null,platformId=null){
+  page=next;
+  selectedType=typeId;
+  selectedPlatform=platformId;
+  guardarNavegacion();
+  render();
+  $('nav').classList.remove('open');
+  $('mobileToggle').setAttribute('aria-expanded','false');
+}
+page=next;selectedType=typeId;selectedPlatform=platformId;render();$('nav').classList.remove('open');$('mobileToggle').setAttribute('aria-expanded','false')}
 function tile(parent,name,description,action){const b=button(name,'tile',action);b.append(el('span','',description));parent.append(b)}
 function note(parent,message){parent.append(el('div','notice',message))}
 function render(){
@@ -44,4 +77,5 @@ $('editorForm').addEventListener('submit',e=>{e.preventDefault();const name=$('i
 $('cancel').addEventListener('click',()=>$('editor').close());
 $('nav').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b)navigate(b.dataset.page)});
 $('mobileToggle').addEventListener('click',()=>{const open=$('nav').classList.toggle('open');$('mobileToggle').setAttribute('aria-expanded',String(open))});
+recuperarNavegacion();
 render();
