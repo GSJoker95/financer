@@ -11,9 +11,9 @@ async function actualizarBloques() {
   investmentTypes = organizados.inversiones;
   liquidityTypes = organizados.liquidez;
 
+  recuperarNavegacion();
   render();
 }
-
 function makeItem(name){return {id:crypto.randomUUID(),name,children:[]}}
 const $=id=>document.getElementById(id);
 async function cargarBloquesSupabase() {
