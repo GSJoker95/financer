@@ -64,6 +64,7 @@ document.getElementById('logoutButton').addEventListener('click', async () => {
 
   try {
     await cerrarSesion();
+    sessionStorage.removeItem('financer_navegacion');
     document.querySelector('.app').hidden = true;
     document.getElementById('loginScreen').hidden = false;
     document.getElementById('loginPassword').value = '';
