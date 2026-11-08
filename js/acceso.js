@@ -22,12 +22,20 @@ async function comprobarAcceso() {
 
   const { data, error } = await supabaseClient.auth.getUser();
 
-  if (!error && data.user) {
+if (!error && data.user) {
+  try {
+    await actualizarBloques();
     pantalla.hidden = true;
     aplicacion.hidden = false;
-  } else {
+  } catch (errorCarga) {
+    console.error('Error al cargar bloques:', errorCarga);
     pantalla.hidden = false;
+    document.getElementById('loginError').textContent =
+      'No se han podido cargar los datos. Recarga la página.';
   }
+} else {
+  pantalla.hidden = false;
+}
 }
 
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
