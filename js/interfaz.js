@@ -303,10 +303,29 @@ function openEditor(collection, label, entry = null) {
 }
 
 async function removeItem(collection, entry) {
-  if (collection !== liquidityTypes && collection !== investmentTypes) {
+  const esLiquidez = liquidityTypes.some(b => b.id === entry.id);
+  const esInversion = investmentTypes.some(b => b.id === entry.id);
+
+  if (!esLiquidez && !esInversion) {
     alert('La eliminación de plataformas y productos todavía no está habilitada.');
     return;
   }
+
+  const confirmado = window.confirm(
+    '¿Eliminar definitivamente «' + entry.name + '»?\n' +
+    'Esta acción no se puede deshacer.'
+  );
+
+  if (!confirmado) return;
+
+  try {
+    await eliminarBloque(entry.id);
+    await actualizarBloques();
+  } catch (error) {
+    console.error('Error al eliminar el bloque:', error);
+    alert('No se ha podido eliminar el bloque. Puede tener elementos asociados.');
+  }
+}
 
   const confirmado = confirm(
     '¿Eliminar definitivamente «' + entry.name + '»?\n' +
