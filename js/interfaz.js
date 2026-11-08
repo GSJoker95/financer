@@ -353,6 +353,4 @@ $('mobileToggle').addEventListener('click', () => {
   const open = $('nav').classList.toggle('open');
   $('mobileToggle').setAttribute('aria-expanded', String(open));
 });
-
-recuperarNavegacion();
 render();
