@@ -51,3 +51,31 @@ function organizarBloques(bloques) {
       .map(b => ({ id: b.id, name: b.nombre, children: [] }))
   };
 }
+async function crearBloque(nombre, bloquePadreId) {
+  const { error } = await supabaseClient
+    .from('bloques')
+    .insert({
+      nombre,
+      bloque_padre_id: bloquePadreId
+    });
+
+  if (error) throw error;
+}
+
+async function renombrarBloque(id, nombre) {
+  const { error } = await supabaseClient
+    .from('bloques')
+    .update({ nombre })
+    .eq('id', id);
+
+  if (error) throw error;
+}
+
+async function eliminarBloque(id) {
+  const { error } = await supabaseClient
+    .from('bloques')
+    .delete()
+    .eq('id', id);
+
+  if (error) throw error;
+}
