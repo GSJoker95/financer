@@ -3,3 +3,20 @@ nav small{display:block;font-size:11px;color:#a8b7ca;margin-top:2px}.nav-sub{pad
 [hidden] {
   display: none !important;
 }
+
+/* Formularios y mensajes compartidos; se conserva el diseño responsive. */
+.login-card{max-width:440px;margin:8vh auto;padding:28px;background:white;border-radius:12px}
+.loading{padding:28px;text-align:center}
+.logout{margin-top:24px}
+#loginError,#editorError{color:#b42318;overflow-wrap:anywhere}
+#dataStatus:not(:empty){padding:12px;border-radius:8px;background:#edf2f8;overflow-wrap:anywhere}
+button:disabled{cursor:wait;opacity:.65}
+button:focus-visible,input:focus-visible{outline:3px solid #6ba2ff;outline-offset:3px}
+.item-name,.item-label,.breadcrumb,.notice{overflow-wrap:anywhere;min-width:0}
+.item-label{font-weight:600}
+.item-name{flex:1}
+.breadcrumb{display:block;line-height:1.8}
+.breadcrumb button{display:inline;width:auto;color:#2563eb;background:none;font-size:14px;padding:0 4px}
+.breadcrumb button:hover{background:#eaf1fc}
+#heading:focus{outline:none}
+@media(max-width:700px){.login-card{margin:24px 16px;padding:22px}.top .actions{width:100%}.top .actions button{flex:1}.breadcrumb{display:block}.item-name{text-align:left}}

@@ -1,26 +1,74 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Financier · V1.7</title><link rel="stylesheet" href="css/estilos.css"></head>
-<body><section id="loginScreen" hidden>
-  <h2>Acceso a Financier</h2>
-  <form id="loginForm">
-    <label for="loginEmail">Correo electrónico</label>
-    <input id="loginEmail" type="email" required autocomplete="username">
-
-    <label for="loginPassword">Contraseña</label>
-    <input id="loginPassword" type="password" required autocomplete="current-password">
-
-    <button type="submit">Entrar</button>
-    <p id="loginError" role="alert"></p>
-  </form>
-</section>
-  <div class="app" hidden><aside><button id="mobileToggle" aria-expanded="false" aria-controls="nav">☰ Menú</button><h1>Financer</h1>
-<button id="logoutButton" type="button">Cerrar sesión</button>
-    <nav id="nav" aria-label="Navegación principal"><button data-page="patrimonio" class="active">⌂ Patrimonio total</button><button data-page="liquidez">▣ Liquidez</button><button data-page="inversiones">▤ Inversiones</button><div class="nav-sub" id="investmentNav"></div><button data-page="resultados">◫ Resultados</button><button data-page="gastos">◷ Gastos <small>En construcción</small></button><button data-page="objetivos">◎ Objetivos <small>En construcción</small></button></nav></aside><main><div class="top"><div><h2 id="heading">Patrimonio total</h2><p class="muted" id="subtitle"></p></div><button class="primary" id="addButton" hidden>+ Añadir</button></div><div class="breadcrumb" id="breadcrumb"></div><section class="card" id="content" aria-live="polite"></section><p class="footnote">V1.7 · Demostración sin almacenamiento. No introduzcas datos financieros reales.</p></main></div>
-<dialog id="editor"><form id="editorForm"><h3 id="dialogTitle">Nuevo elemento</h3><label for="itemName">Nombre</label><input id="itemName" required maxlength="80" autocomplete="off"><div class="dialog-actions"><button type="button" class="secondary" id="cancel">Cancelar</button><button type="submit" class="primary">Guardar</button></div></form></dialog>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.3/dist/umd/supabase.min.js"></script>
-<script src="js/supabase-config.js"></script>
-<script src="js/datos.js"></script>
-<script src="js/interfaz.js"></script>
-<script src="js/acceso.js"></script>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Financer</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <p id="loadingScreen" class="loading" role="status">Comprobando acceso…</p>
+  <noscript>Activa JavaScript en tu navegador para utilizar Financer.</noscript>
+  <section id="loginScreen" class="login-card" hidden>
+    <h1>Acceso a Financer</h1>
+    <form id="loginForm">
+      <label for="loginEmail">Correo electrónico</label>
+      <input id="loginEmail" type="email" required autocomplete="username">
+      <label for="loginPassword">Contraseña</label>
+      <input id="loginPassword" type="password" required autocomplete="current-password">
+      <button id="loginSubmit" type="submit" class="primary">Entrar</button>
+      <p id="loginError" role="alert"></p>
+    </form>
+    <button id="retryAccess" class="secondary" type="button">Reintentar</button>
+  </section>
+  <div class="app" hidden>
+    <aside>
+      <button id="mobileToggle" type="button" aria-expanded="false" aria-controls="nav">☰ Menú</button>
+      <h1>Financer</h1>
+      <nav id="nav" aria-label="Navegación principal">
+        <button type="button" data-page="patrimonio">Patrimonio total</button>
+        <button type="button" data-page="liquidez">Liquidez</button>
+        <button type="button" data-page="inversiones">Inversiones</button>
+        <div class="nav-sub" id="investmentNav"></div>
+        <button type="button" data-page="plataformas">Plataformas</button>
+        <button type="button" data-page="resultados">Resultados <small>Pendiente</small></button>
+        <button type="button" data-page="gastos">Gastos <small>Pendiente</small></button>
+        <button type="button" data-page="objetivos">Objetivos <small>Pendiente</small></button>
+      </nav>
+      <button id="logoutButton" class="secondary logout" type="button">Cerrar sesión</button>
+    </aside>
+    <main>
+      <div class="top">
+        <div><h2 id="heading" tabindex="-1">Patrimonio total</h2><p class="muted" id="subtitle"></p></div>
+        <div class="actions">
+          <button class="secondary" id="refreshButton" type="button">Actualizar datos</button>
+          <button class="primary" id="addButton" type="button" hidden>+ Añadir</button>
+        </div>
+      </div>
+      <nav class="breadcrumb" id="breadcrumb" aria-label="Ruta de categorías"></nav>
+      <p id="dataStatus" role="status" aria-live="polite"></p>
+      <section class="card" id="content" aria-label="Contenido"></section>
+      <p class="footnote">Los cambios de categorías y plataformas se guardan en tu cuenta.</p>
+    </main>
+  </div>
+  <dialog id="editor" aria-labelledby="dialogTitle">
+    <form id="editorForm">
+      <h3 id="dialogTitle">Nuevo elemento</h3>
+      <label for="itemName">Nombre</label>
+      <input id="itemName" required maxlength="80" autocomplete="off">
+      <p id="editorError" role="alert"></p>
+      <div class="dialog-actions">
+        <button type="button" class="secondary" id="cancel">Cancelar</button>
+        <button type="submit" class="primary">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.3/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/modelo.js"></script>
+  <script src="js/estrategias.js"></script>
+  <script src="js/datos.js"></script>
+  <script src="js/interfaz.js"></script>
+  <script src="js/acceso.js"></script>
 </body>
 </html>
