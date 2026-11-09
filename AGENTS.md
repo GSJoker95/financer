@@ -2,8 +2,16 @@
 
 - Explicar en español sencillo. Si el propietario debe intervenir, usar pasos
   numerados con el resultado esperado.
-- Las indicaciones actuales del propietario prevalecen sobre documentos históricos.
-  Los acuerdos vigentes están en `docs/Arquitectura.md`.
+- Leer primero `Codex_Financer.txt`, documento central de continuidad entre chats.
+  Las indicaciones actuales del propietario prevalecen sobre documentos históricos.
+  Los acuerdos técnicos complementarios están en `docs/Arquitectura.md`.
+- Actualizar `Codex_Financer.txt` con cada cambio de código o estructura y cada
+  indicación del propietario que les afecte, en la misma entrega. Distinguir lo
+  acordado, implementado, probado y pendiente; conservar el registro de decisiones.
+- Ante una duda sobre estructura o funcionamiento, preguntar antes de implementarla.
+- Antes de cada cambio significativo crear un respaldo nuevo, sin mover los
+  existentes; registrar referencia, SHA y recuperación en `Codex_Financer.txt`.
+  Los cambios de datos o esquema requieren recuperación independiente de Git.
 - Mantener coste cero, HTML/CSS/JavaScript, Supabase y alojamiento estático.
   No introducir APIs bancarias, de brokers ni servicios financieros externos.
 - Crear ramas de trabajo desde el estado verificado de `desarrollo-v1.8`.
