@@ -49,6 +49,12 @@ registros financieros reales para pruebas de escritura.
 
 ## Publicación y recuperación
 
+Web de trabajo de V0: https://financer-v0.financer-pruebas.pages.dev/
+
+La dirección anterior https://financer-pruebas.pages.dev/ puede conservar la
+configuración de producción de la rama antigua. Usar la URL específica de V0
+para comprobar sus cambios hasta revisar ese ajuste externo en Cloudflare.
+
 La rama viva de trabajo es `financer_V0` (antes `desarrollo-v1.8`). Las propuestas se preparan en
 ramas `codex/*` nacidas de ella. `main` y los respaldos históricos no se actualizan
 automáticamente. `financer_V2` conserva la versión comentada; tras cambios significativos

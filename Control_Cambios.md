@@ -100,3 +100,25 @@ anteriores como si hubieran sido probadas.
 El cambio de referencia a V0 puede acompañarse de un commit sin cambios de archivos
 para activar sus comprobaciones e integración de publicación bajo el nombre nuevo.
 Ese commit no cambia el contenido de la instantánea V2 ni crea una funcionalidad nueva.
+
+
+### Cierre comprobado de financer_V2 y activación de V0
+
+- Propuesta incorporada: https://github.com/GSJoker95/financer/pull/4
+- Commit comentado: `17b80d66ce4dab1979b6b425d895b2a23b1bec8b`.
+- Incorporación y respaldo inmutable `financer_V2`:
+  `0572ef543f74a96ea72632046da3f549d9d39d94`.
+- Renombrado real de GitHub: `desarrollo-v1.8` pasa a llamarse `financer_V0`.
+- Activación sin modificar archivos: `c05a9cead0f7509d1008dbe669ef8f615b6033da`.
+- CI de V0 completada correctamente:
+  https://github.com/GSJoker95/financer/actions/runs/42540966444
+- Cloudflare: despliegue de V0 correcto. URL de trabajo verificada:
+  https://financer-v0.financer-pruebas.pages.dev/
+- Pantalla de acceso publicada comprobada en 1280/390 px sin errores JavaScript.
+  HTML, CSS e interfaz publicados coinciden con los archivos comentados probados.
+  No se introduce autenticación ni escritura con cuentas reales en esta comprobación.
+- Actualización documental posterior de README, esta guía de cambios y la guía de
+  migración para conservar las referencias definitivas. No modifica el código
+  respaldado ni mueve V2; no constituye una nueva versión funcional V3.
+- La URL raíz anterior de Cloudflare no se garantiza vinculada a la rama renombrada.
+  Se conserva la configuración externa y se usa el enlace específico de V0.

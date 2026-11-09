@@ -154,6 +154,11 @@ no deshace registros creados o eliminados mientras se utiliza la aplicación.
 
 ## 7. Rama viva, respaldos y publicación
 
+URL de trabajo de V0 verificada: https://financer-v0.financer-pruebas.pages.dev/
+Instantánea publicada de la activación: https://345e318a.financer-pruebas.pages.dev/
+Ambas corresponden al código comentado. La pantalla de acceso se comprobó en
+1280/390 px, sin errores JavaScript y sin iniciar sesión real.
+
 - **financer_V0:** rama de trabajo permanente, antes llamada desarrollo-v1.8.
 - **financer_V2:** instantánea de la entrega comentada tras comprobarla.
 - **financer_V3, V4, etc.:** se crean después de futuros cambios significativos
