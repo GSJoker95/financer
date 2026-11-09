@@ -16,14 +16,16 @@
   crear una nueva. Revisar y actualizar esa explicación junto con el código.
 - Mantener la documentación de instalación, configuración y dependencias necesaria
   para migrar de plataforma. No confundir esa preparación con autorización de traslado.
-- Trabajar sobre la rama viva `financer_V0` o preparar ramas `codex/*` nacidas de su
-  SHA verificado e incorporarlas de vuelta a V0. `desarrollo-v1.8` es el nombre anterior.
-- Conservar sin cambios `financer_V2` y los siguientes respaldos numerados, además
-  de main y los respaldos históricos. Revisar el último respaldo antes de cambios
-  significativos; si no cubre el estado previo, guardar otra referencia sin moverlo.
-  Al cerrar y verificar un cambio significativo crear el siguiente `financer_VN`
-  disponible (V3, V4, etc.) y continuar desarrollando en V0. Registrar SHA, alcance
-  y recuperación en Control_Cambios.md. No reutilizar nombres de respaldos existentes.
+- Trabajar siempre desde la rama viva `financer_V0` y mantener como acceso habitual
+  https://financer-v0.financer-pruebas.pages.dev/; incorporar cambios no cambia esa URL.
+  No crear ramas auxiliares o de respaldo por iniciativa propia para cada entrega.
+- El propietario decide cuándo crear un respaldo y cómo se llama. Si un cambio
+  significativo necesita respaldo y no ha facilitado un nombre, explicar el motivo
+  y preguntárselo ANTES de crearlo. No asignar V3, V4 ni nombres automáticos.
+- La limpieza autorizada del 10 de noviembre deja solo `main`, `financer_V0` y
+  `financer_V2`. Los futuros respaldos se añadirán únicamente por petición/nombre
+  del propietario. No mover ni eliminar esas referencias sin autorización expresa.
+  Registrar nombre, SHA y recuperación en Control_Cambios.md; preguntar si hay dudas.
 - Mantener nombre, entrega y revisión visibles en `js/version.js`. Al preparar una
   versión nueva actualizar ese identificador, las revisiones de recursos en HTML y
   sus comprobaciones de navegador para no presentar una entrega antigua como actual.

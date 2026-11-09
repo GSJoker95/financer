@@ -129,6 +129,7 @@ la instalación, el alojamiento y qué necesita un traslado futuro. Esta entrega
 añade funciones financieras ni cambia los registros o el esquema de Supabase.
 
 10. NOMENCLATURA DE TRABAJO Y RESPALDOS
+Nota vigente: la entrada 12 sustituye la creación automática y numeración de futuros respaldos.
 LO QUE PIDES:
 Al terminar los comentarios, crear un respaldo llamado financer_V2 y cambiar el nombre
 de la rama de trabajo a financer_V0. Después de cada cambio significativo, crear
@@ -166,6 +167,28 @@ indican su sitio real para no confundir una vista previa con la rama correcta.
 Conservo el V2 anterior en archivo-financer_V2-2026-11-10 y el estado previo de V0
 en una referencia de respaldo. Tras verificar la entrega publicada actualizo
 financer_V2 al estado nuevo. No se cambian datos ni formularios financieros.
+
+12. ENLACE PERMANENTE, NOMBRES DE RESPALDO Y LIMPIEZA DE RAMAS
+Fecha: 10 de noviembre de 2026.
+LO QUE PIDES:
+Seguir utilizando siempre la web de V0 con el mismo enlace. Crear versiones de
+respaldo cuando lo indiques, con el nombre que tú decidas. Si no has dado nombre,
+comentarlo antes de crear una referencia para que puedas elegirlo con sentido.
+Mientras compruebas la aplicación, eliminar las ramas distintas de main, V0 y V2.
+LO QUE ENTIENDO:
+V0 continúa siendo la rama viva. El enlace habitual no cambia al incorporar código.
+El nombre y momento de cada respaldo son decisiones tuyas; esta instrucción sustituye
+la pauta anterior de crear V3, V4 o referencias auxiliares automáticamente.
+La limpieza se refiere a las ramas remotas de GitHub, incluidos respaldos antiguos,
+archivos de versiones y ramas temporales que ya se habían incorporado.
+LO QUE HAGO:
+Mantengo https://financer-v0.financer-pruebas.pages.dev/ como enlace de trabajo.
+He eliminado las 11 ramas remotas sobrantes y conservado exactamente main,
+financer_V0 y financer_V2. No he creado otro respaldo ni movido V2. Sus commits
+históricos continúan en el historial de las ramas conservadas; la relación técnica
+de nombres retirados y SHAs queda en Control_Cambios.md, no como ramas nuevas.
+Actualizo las reglas y guías para preguntar el nombre antes de crear futuros
+respaldos. Esta limpieza no modifica la aplicación ni los datos que estás comprobando.
 
 FORMATO PARA AÑADIR UNA FUTURA PETICIÓN DE ESTRUCTURA
 Fecha y asunto:

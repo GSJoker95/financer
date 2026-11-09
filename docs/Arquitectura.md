@@ -110,8 +110,10 @@ No se utilizaron claves privadas en el frontend ni se exportaron datos financier
 ## Documentación y versionado desde financer_V2
 
 La rama viva pasa a ser `financer_V0`, nombre nuevo de `desarrollo-v1.8`. La versión
-comentada se conserva en `financer_V2`. Los siguientes cierres significativos crean
-`financer_V3`, V4 y sucesivos; los respaldos se preservan, no se usan para desarrollar.
+comentada se conserva en `financer_V2`. Desde la petición posterior del 10 de noviembre, el propietario elige cuándo crear
+un respaldo y su nombre; si falta el nombre se pregunta antes de crearlo. No se
+generan V3/V4 automáticamente. La limpieza deja solo main, V0 y V2; los nombres y
+SHAs retirados se conservan como registro técnico, no como ramas adicionales.
 
 Por instrucción del propietario, cada nueva instrucción de código propio debe
 explicar qué hace y por qué en un comentario. HTML, CSS, JavaScript, YAML y Git ignore
@@ -142,3 +144,12 @@ V2. El respaldo anterior se archiva antes de actualizar la referencia V2. Las re
 de inmutabilidad siguen aplicándose por defecto a las siguientes entregas.
 Las consultas de revisión de los recursos HTML evitan reutilizar los archivos
 anteriores al actualizar la identificación. Deben mantenerse junto con `version.js`.
+
+
+## Continuidad de la web de trabajo
+
+La dirección https://financer-v0.financer-pruebas.pages.dev/ sigue a la rama viva V0
+y no cambia con cada actualización. No remitir al propietario a URLs de despliegues
+con códigos si solo necesita probar la última versión. Las URLs de instantáneas
+se reservan para contrastar una publicación concreta. La limpieza de referencias Git
+no cambia la base de datos ni el código de las pruebas manuales en curso.

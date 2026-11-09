@@ -143,3 +143,38 @@ Ese commit no cambia el contenido de la instantánea V2 ni crea una funcionalida
   antes/después del acceso y sin CDN. Publicación y referencia V2 se verifican al cierre.
 - Recuperación: conservar V2 anterior mediante su archivo; revertir la propuesta
   en V0 si se quiere retirar la cabecera. Git no cambia los registros de Supabase.
+
+
+## Limpieza de ramas y nombres de respaldo elegidos por el propietario — 10 de noviembre de 2026
+
+- Instrucción: mantener el enlace estable de V0; crear respaldos cuando lo indique
+  el propietario y con su nombre; si falta, preguntar antes de crear la referencia.
+  Sustituye la pauta anterior de generar V3/V4 o respaldos preventivos automáticamente.
+- Limpieza autorizada: eliminadas 11 ramas remotas; quedan solo main, financer_V0
+  y financer_V2. Sin propuestas abiertas. Se comprobó antes que todos los commits
+  retirados pertenecen al historial de al menos una de las ramas conservadas.
+- Eliminación atómica con comprobación del SHA esperado de cada referencia.
+  El borrado no movió las tres referencias conservadas ni cambió el código.
+- Origen de V0 y V2 al limpiar: `b08c3272ac5a021495782b9ecefeb2261459fd1e`.
+- Cambios adicionales: solo documentación de las reglas en AGENTS, Codex_Financer,
+  README, arquitectura y guía de migración. No se crea otra rama para esta entrega
+  ni otro respaldo. V2 mantiene su commit; V0 recibe únicamente este registro documental.
+- Verificación: inventario remoto final exacto, commits de main/V2 conservados y
+  git diff --check. No se cambia código ejecutable ni se requieren nuevas pruebas
+  funcionales mientras el propietario realiza sus comprobaciones manuales.
+- Recuperación: si se necesita una referencia retirada, acordar su nombre y recrearla
+  desde el SHA registrado a continuación. No recrear ramas automáticamente.
+
+| Rama retirada | SHA al eliminarla |
+| --- | --- |
+| `archivo-financer_V2-2026-11-10` | `0572ef543f74a96ea72632046da3f549d9d39d94` |
+| `codex/comentarios-v2` | `17b80d66ce4dab1979b6b425d895b2a23b1bec8b` |
+| `codex/documentacion-contexto` | `7a1d98ce6ac1a77fe01dac4d0e9580b146ea780f` |
+| `codex/estructura-flexible` | `2629fd87b72f28bc0609308310a0ada01573f495` |
+| `codex/identificacion-v2` | `655dd084e29e96b234168c16c323da8d2124decb` |
+| `codex/reparacion-arranque` | `e0f956a8171546bad8ea1667fff09e23eb49cc7f` |
+| `respaldo-pre-financer_V2` | `3d084c43509c651958eb95bc9b171fe590c9c424` |
+| `respaldo-pre-identificacion-V2-2026-11-10` | `f882f1b21859615aa1f2927a28cce7e487fb25bf` |
+| `respaldo-v1.7` | `2227b038aa58bdec43b7bddc4df7df9c0ff61110` |
+| `respaldo-v1.8.7` | `3cdc6702f41ebcedc7474444730a3025b3069df7` |
+| `respaldo-v1.8.9` | `17307030ce6987eae0ed0d7b1c760ac67475f09a` |

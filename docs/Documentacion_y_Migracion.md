@@ -57,8 +57,9 @@ explicación JSON; no se incluyen node_modules, capturas temporales ni secretos.
 | `docs/Verificacion.md` | Pasos manuales; actualiza rama viva, recuperación y comprobación de despliegues. |
 
 Los documentos en prosa ya explican su contenido: no reciben comentarios de código
-artificiales. Las ramas de respaldo anteriores se conservan intactas; modificar
-sus archivos para comentarlos destruiría el significado de esas instantáneas.
+artificiales. Las versiones anteriores no se modifican para añadir comentarios retroactivamente.
+Sus ramas sobrantes fueron retiradas por petición expresa posterior; sus commits
+siguen accesibles en el historial y están identificados en Control_Cambios.md.
 
 ## 3. Cómo funciona y qué necesita en ejecución
 
@@ -161,26 +162,29 @@ Instantánea publicada de la activación: https://345e318a.financer-pruebas.page
 Ambas corresponden al código comentado. La pantalla de acceso se comprobó en
 1280/390 px, sin errores JavaScript y sin iniciar sesión real.
 
-- **financer_V0:** rama de trabajo permanente, antes llamada desarrollo-v1.8.
-- **financer_V2:** instantánea de la entrega comentada tras comprobarla.
-- **financer_V3, V4, etc.:** se crean después de futuros cambios significativos
-  comprobados, sin mover versiones existentes ni desarrollar dentro de ellas.
-- **respaldo-pre-financer_V2:** estado previo a esta documentación, en el SHA
-  3d084c43509c651958eb95bc9b171fe590c9c424.
-- main y las referencias históricas se conservan. La numeración de respaldos no
-  cambia automáticamente la versión de dependencias o del manifiesto npm.
+- **financer_V0:** rama viva permanente. Su enlace de trabajo se conserva al actualizarla.
+- **financer_V2:** respaldo vigente, que no se mueve por iniciativa del agente.
+- **main:** referencia separada que no se modifica durante estas comprobaciones.
+- La limpieza autorizada del 10 de noviembre elimina el resto de ramas remotas.
+  Los nombres y SHAs retirados se documentan en Control_Cambios.md. No se borra el
+  historial que sigue incluido en las tres referencias conservadas.
+- Los siguientes respaldos se crean cuando lo indique el propietario y con el
+  nombre que facilite. Si falta un nombre, preguntar antes de crear la referencia;
+  no generar automáticamente numeraciones ni referencias preventivas.
 
-Para investigar una recuperación, crear una rama nueva desde el respaldo y comparar
-antes de incorporar nada a V0. No usar force push ni sustituir el historial de V0.
+Para investigar una recuperación, acordar primero con el propietario si necesita
+una rama adicional y su nombre. Solo entonces crearla desde el respaldo elegido y
+comparar antes de incorporar nada a V0. No usar force push para sustituir su historial.
 
 ```sh
 # Actualiza las referencias remotas sin reemplazar por la fuerza archivos de trabajo.
 git fetch origin
-# Crea una rama de investigación desde la instantánea V2, conservando V0 sin cambios.
+# Solo después de acordar este nombre con el propietario, crea una rama de investigación desde V2.
 git switch -c recuperacion-V2 origin/financer_V2
 ```
 
-El workflow comprueba V0 y ramas preparatorias codex/*. Los respaldos numerados no
+El workflow comprueba V0 y admite ramas preparatorias codex/* si se acuerdan; no
+crea ninguna por sí mismo. Los respaldos con nombre elegido por el propietario no
 se usan como destinos de propuestas de desarrollo ni requieren ejecutar CI por
 cada creación de referencia si apuntan a un commit ya verificado.
 
@@ -216,5 +220,6 @@ y con el CDN caído. La versión npm del manifiesto sigue identificando las herr
 y no se utiliza para decidir qué respaldo está comprobando el propietario.
 
 Por petición expresa del 10 de noviembre, V2 se actualiza tras verificar esta
-identificación. Su estado anterior se conserva en `archivo-financer_V2-2026-11-10`.
+identificación. Su estado anterior se archivó en `archivo-financer_V2-2026-11-10`. Esa rama se
+retiró después en la limpieza expresa; el SHA original consta en Control_Cambios.md.
 No trasladar esta excepción a los respaldos futuros sin una instrucción equivalente.

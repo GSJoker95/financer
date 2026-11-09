@@ -59,12 +59,16 @@ La dirección anterior https://financer-pruebas.pages.dev/ puede conservar la
 configuración de producción de la rama antigua. Usar la URL específica de V0
 para comprobar sus cambios hasta revisar ese ajuste externo en Cloudflare.
 
-La rama viva de trabajo es `financer_V0` (antes `desarrollo-v1.8`). Las propuestas se preparan en
-ramas `codex/*` nacidas de ella. `main` y los respaldos históricos no se actualizan
-automáticamente. `financer_V2` conserva la versión comentada; tras cambios significativos
-se crearán V3, V4, etc., sin modificar respaldos anteriores. El enlace GitHub Pages comunicado servía `main` durante la auditoría;
-no usarlo como prueba de que desarrollo está publicado. La configuración de
-Cloudflare y sus despliegues debe verificarse por separado.
+La rama viva de trabajo es `financer_V0` (antes `desarrollo-v1.8`). Ese enlace
+permanece estable cuando se incorporan cambios. `main` se conserva como referencia
+separada y `financer_V2` mantiene el respaldo vigente. Tras la limpieza autorizada
+solo quedan esas tres ramas en GitHub.
+
+El propietario decide cuándo crear un respaldo y con qué nombre. Si hace falta
+uno y no ha dado nombre, preguntárselo antes de crearlo; no generar V3/V4 ni ramas
+auxiliares automáticamente. Las referencias históricas retiradas y sus SHAs están
+en Control_Cambios.md. GitHub Pages servía main durante la auditoría; para las
+comprobaciones actuales utilizar el enlace estable de V0 indicado arriba.
 
 Publicar como web estática con la raíz del repositorio como directorio de salida;
 no se necesita comando de compilación. Si el alojamiento instala dependencias,
