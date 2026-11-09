@@ -675,3 +675,82 @@ button:focus-visible,input:focus-visible {
   } /* Fin de las propiedades del selector anterior. */
 
 } /* Fin de las variantes para pantalla pequeña. */
+
+/* Identificación pública de la entrega: visible tanto sin sesión como dentro de la aplicación. */
+.app-identity {
+  /* Agrupa la marca y los detalles sin imponer un ancho fijo al dispositivo. */
+  display: flex;
+  /* Permite que los detalles pasen a otra fila cuando el nombre del sitio sea largo. */
+  flex-wrap: wrap;
+  /* Centra los dos grupos sobre el mismo eje en pantallas amplias. */
+  align-items: center;
+  /* Separa la marca del entorno para distinguir la versión de los datos de sesión. */
+  justify-content: space-between;
+  /* Conserva espacio entre grupos tanto al alinearse como al cambiar de fila. */
+  gap: 8px 16px;
+  /* Mantiene una zona de identificación legible sin pegar el texto a los bordes. */
+  padding: 12px 22px;
+  /* Utiliza el fondo oscuro de la navegación para que la identificación destaque. */
+  background: #17263c;
+  /* Garantiza contraste del nombre de la aplicación con ese fondo oscuro. */
+  color: white;
+/* Termina la distribución general de la cabecera de identificación. */
+}
+/* Mantiene juntos Financer y V2 para que se reconozcan como nombre y entrega. */
+.identity-title {
+  /* Coloca nombre y etiqueta de versión en una misma fila. */
+  display: flex;
+  /* Alinea la etiqueta y el nombre pese a que tengan rellenos diferentes. */
+  align-items: center;
+  /* Separa visualmente el nombre del número de versión. */
+  gap: 10px;
+/* Termina el grupo de marca y versión. */
+}
+/* Distingue la versión del nombre sin convertirla en un control pulsable. */
+.identity-version {
+  /* Resalta el identificador de entrega frente al fondo general de la cabecera. */
+  background: #30435d;
+  /* Reserva aire alrededor de una versión corta como V2. */
+  padding: 4px 8px;
+  /* Mantiene la forma visual de las etiquetas de la aplicación. */
+  border-radius: 6px;
+  /* Permite reconocer el número de versión con una lectura rápida. */
+  font-weight: bold;
+/* Termina la etiqueta de versión. */
+}
+/* Presenta el entorno y la revisión como información auxiliar de la misma entrega. */
+.identity-details {
+  /* Permite distribuir los dos datos como un grupo independiente. */
+  display: flex;
+  /* Coloca entorno y revisión en líneas separadas para evitar un texto demasiado largo. */
+  flex-direction: column;
+  /* Separa las dos líneas sin añadir márgenes a sus etiquetas HTML. */
+  gap: 3px;
+  /* Alinea los detalles con el borde derecho en pantallas de ordenador. */
+  text-align: right;
+  /* Permite encoger este grupo cuando la dirección del sitio tenga muchos caracteres. */
+  min-width: 0;
+/* Termina la organización del detalle de despliegue. */
+}
+/* Mantiene los datos técnicos de identificación discretos pero legibles. */
+.identity-details small {
+  /* Usa un tamaño secundario sin reducir las acciones principales de la aplicación. */
+  font-size: 12px;
+  /* Conserva contraste suficiente sobre el fondo oscuro de la cabecera. */
+  color: #e2e8f0;
+  /* Evita desbordamientos horizontales por dominios de vistas previas largos. */
+  overflow-wrap: anywhere;
+/* Termina los estilos del texto auxiliar. */
+}
+/* Adapta la identificación a móvil sin ocultar la versión ni la rama. */
+@media (max-width:700px) {
+  /* Coloca los detalles bajo el nombre para no comprimir la etiqueta de versión. */
+  .identity-details {
+    /* Lleva los detalles al principio de la nueva fila para facilitar su lectura. */
+    text-align: left;
+    /* Reserva una fila completa para entorno y revisión en pantallas estrechas. */
+    flex-basis: 100%;
+  /* Termina el ajuste del grupo de detalles en móvil. */
+  }
+/* Termina la variante móvil de la cabecera de identificación. */
+}

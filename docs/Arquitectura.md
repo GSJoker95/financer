@@ -11,6 +11,7 @@ sobre registros existentes. No se crea contenido al iniciar sesión.
 
 | Archivo | Responsabilidad |
 | --- | --- |
+| `js/version.js` | Nombre, entrega y revisión públicos; identifica el sitio sin sesión ni consultas al backend. |
 | `js/supabase-config.js` | Crear el cliente con URL y clave pública; tolerar un fallo de carga del CDN. |
 | `js/modelo.js` | Construir el árbol por IDs, validar relaciones/nombres y sanear navegación. Funciones independientes del DOM y de Supabase. |
 | `js/estrategias.js` | Describir los recorridos Crypto acordados; no crear datos ni imponer campos. |
@@ -122,3 +123,22 @@ respaldos anteriores para añadir comentarios retroactivamente.
 «Lo que pides / Lo que entiendo / Lo que hago». El historial técnico se conserva
 en este documento, Control_Cambios.md y las guías asociadas, con detalle de migración
 en `Documentacion_y_Migracion.md`.
+
+
+## Identificación visible de la entrega
+
+`js/version.js` se carga después de crear la cabecera pública y antes del SDK.
+Centraliza `Financer`, `V2`, revisión `2026-11-10.1` y rama de trabajo `financer_V0`.
+La cabecera permanece fuera de los contenedores de acceso y datos privados; la
+limpieza de sesión no la borra. La pestaña utiliza también nombre y entrega.
+
+La rama V0 se identifica por su hostname estable verificado. Un servidor local se
+indica como local y otros enlaces muestran su hostname, sin deducir una rama que
+no se puede verificar desde una URL de despliegue genérica. No es un mecanismo de
+autorización ni consulta la API: permite al propietario reconocer qué versión abre.
+
+La revisión distingue esta actualización que conserva por petición expresa el nombre
+V2. El respaldo anterior se archiva antes de actualizar la referencia V2. Las reglas
+de inmutabilidad siguen aplicándose por defecto a las siguientes entregas.
+Las consultas de revisión de los recursos HTML evitan reutilizar los archivos
+anteriores al actualizar la identificación. Deben mantenerse junto con `version.js`.

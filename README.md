@@ -6,6 +6,10 @@ framework y sin conexiones a bancos o brokers.
 
 ## Qué funciona en esta entrega
 
+Antes de entrar debe verse **Financer · V2**, la **revisión 2026-11-10.1** y,
+en el enlace de trabajo, **Pruebas · financer_V0**. La identificación se conserva
+al iniciar o cerrar sesión. V2 es la entrega; V0 es su rama editable.
+
 - Inicio/cierre de sesión, recuperación de acceso y reintento de carga.
 - Categorías y subcategorías de profundidad flexible: consultar, crear, renombrar
   y eliminar. Las categorías principales se conservan; no se borran ramas con hijos.

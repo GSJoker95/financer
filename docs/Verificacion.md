@@ -2,6 +2,12 @@
 
 ## Antes de empezar
 
+Abrir https://financer-v0.financer-pruebas.pages.dev/ y comprobar arriba, antes de
+entrar, **Financer**, **V2**, **Pruebas · financer_V0** y **Revisión 2026-11-10.1**.
+Si no aparecen, recargar sin caché (Ctrl+F5 en ordenador) y revisar que se utiliza
+ese enlace, no el antiguo GitHub Pages ni la URL general de otro despliegue.
+La identificación debe continuar visible después de iniciar y cerrar sesión.
+
 Usar la URL de pruebas de la rama `financer_V0`, una vez confirmado su despliegue.
 Cloudflare puede conservar la rama de producción anterior tras un renombrado:
 comprobar el commit o el enlace de despliegue de GitHub antes de probar una versión.

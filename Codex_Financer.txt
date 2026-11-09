@@ -1,5 +1,5 @@
 CODEX_FINANCER — PETICIONES SOBRE LA ESTRUCTURA DE FINANCER
-Actualizado: 9 de noviembre de 2026.
+Actualizado: 10 de noviembre de 2026.
 
 FINALIDAD Y FORMATO
 Este documento recoge únicamente las instrucciones del propietario que afectan
@@ -146,6 +146,26 @@ En adelante preservaré el último respaldo antes de trabajar y crearé el sigui
 respaldo numerado al cerrar cada cambio significativo, una vez comprobado.
 Los registros de Supabase requieren su propio respaldo: Git conserva el código,
 no una copia de los datos financieros.
+
+11. IDENTIFICACIÓN VISIBLE DE LA ENTREGA Y ACTUALIZACIÓN EXPRESA DE V2
+Fecha: 10 de noviembre de 2026.
+LO QUE PIDES:
+Que el nombre sea Financer y aparezca la versión utilizada al entrar, para saber
+que estás en la web correcta antes de las comprobaciones manuales. Al terminar,
+rehacer el respaldo manteniendo el nombre financer_V2.
+LO QUE ENTIENDO:
+Hay que distinguir versión de entrega (V2), rama editable (V0) y revisión concreta.
+La identificación debe verse antes del acceso y continuar dentro de la aplicación.
+Esta petición autoriza excepcionalmente actualizar V2; no cambia la regla general
+de conservar los siguientes respaldos numerados sin moverlos.
+LO QUE HAGO:
+Añado una cabecera pública y centralizo nombre, versión y revisión en js/version.js.
+La pestaña y la cabecera muestran Financer y V2; la revisión identifica esta actualización.
+La etiqueta de rama V0 se muestra solo en su dirección de trabajo; otras vistas
+indican su sitio real para no confundir una vista previa con la rama correcta.
+Conservo el V2 anterior en archivo-financer_V2-2026-11-10 y el estado previo de V0
+en una referencia de respaldo. Tras verificar la entrega publicada actualizo
+financer_V2 al estado nuevo. No se cambian datos ni formularios financieros.
 
 FORMATO PARA AÑADIR UNA FUTURA PETICIÓN DE ESTRUCTURA
 Fecha y asunto:

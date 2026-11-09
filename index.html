@@ -8,14 +8,36 @@
   <meta charset="UTF-8">
   <!-- Adapta el ancho inicial a la pantalla del móvil y evita una vista de escritorio reducida. -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Nombra la pestaña como Financer sin depender de una versión visual desactualizada. -->
+  <!-- Usa el nombre correcto como base; version.js añadirá la versión visible de la entrega. -->
   <title>Financer</title>
-  <!-- Carga los estilos mediante una ruta relativa para servir también desde una subcarpeta. -->
-  <link rel="stylesheet" href="css/estilos.css">
+  <!-- Carga estilos relativos con revisión para no reutilizar la hoja anterior al añadir la identificación. -->
+  <link rel="stylesheet" href="css/estilos.css?v=2026-11-10.1">
 <!-- Termina la configuración previa a la parte visible de la página. -->
 </head>
 <!-- Abre el contenido que verán el propietario y sus ayudas de accesibilidad. -->
 <body>
+  <!-- Mantiene la identificación fuera de las pantallas privadas para verla antes y después del acceso. -->
+  <header id="appIdentity" class="app-identity" aria-label="Identificación de Financer">
+    <!-- Agrupa el nombre y la versión para reconocer de un vistazo la aplicación abierta. -->
+    <div class="identity-title">
+      <!-- Conserva Financer como nombre legible incluso antes de ejecutar la identificación. -->
+      <strong id="appBrand">Financer</strong>
+      <!-- Recibe la versión desde una única definición para no mezclar números de entregas distintas. -->
+      <span id="appVersion" class="identity-version"></span>
+    <!-- Termina el grupo de marca y versión. -->
+    </div>
+    <!-- Separa el entorno y la revisión de la marca para mantenerlos legibles en móvil. -->
+    <div class="identity-details">
+      <!-- Indica la rama V0 solo en su dirección verificada; en otras direcciones muestra el sitio. -->
+      <small id="appEnvironment"></small>
+      <!-- Distingue esta actualización concreta aunque se mantenga el respaldo denominado V2. -->
+      <small id="appRevision"></small>
+    <!-- Termina los datos de identificación del despliegue. -->
+    </div>
+  <!-- Termina la cabecera que no contiene datos financieros ni requiere una cuenta conectada. -->
+  </header>
+  <!-- Carga la identificación antes del SDK para verla incluso si falla la conexión a Supabase. -->
+  <script src="js/version.js?v=2026-11-10.1"></script>
   <!-- Muestra espera accesible mientras acceso.js comprueba la sesión, evitando una pantalla vacía. -->
   <p id="loadingScreen" class="loading" role="status">Comprobando acceso…</p>
   <!-- Explica el requisito de JavaScript si el navegador no ejecuta los scripts. -->
