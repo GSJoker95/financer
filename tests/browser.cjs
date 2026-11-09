@@ -244,6 +244,18 @@ async function pruebasNavegacion(browser, ancho) {
   await page.goto(ORIGEN);
   // Espera el acceso para comprobar el caso inicial sin sesión.
   await page.locator('#loginScreen').waitFor({ state: 'visible' });
+  // Comprueba que el usuario identifica nombre y versión antes de facilitar credenciales.
+  assert.equal(await page.locator('#appIdentity').isVisible(), true);
+  // Verifica que la pestaña identifica la entrega actual, no un título histórico V1.7.
+  assert.equal(await page.title(), 'Financer · V2');
+  // Comprueba que se publica el nombre acordado, sin variaciones como Financier.
+  assert.equal(await page.locator('#appBrand').innerText(), 'Financer');
+  // Distingue la entrega V2 de la rama editable V0 que se utiliza para desarrollarla.
+  assert.equal(await page.locator('#appVersion').innerText(), 'V2');
+  // Identifica esta revisión concreta de V2 para detectar una página antigua al comprobarla.
+  assert.equal(await page.locator('#appRevision').innerText(), 'Revisión 2026-11-10.1');
+  // No atribuye la rama V0 al dominio ficticio del test: muestra el sitio realmente abierto.
+  assert.equal(await page.locator('#appEnvironment').innerText(), 'Sitio: financer.test');
   // Verifica que no se muestra contenido privado sin autenticar.
   assert.equal(await page.locator('.app').isVisible(), false);
   // Intenta entrar con contraseña errónea para cubrir el flujo de rechazo.
@@ -254,6 +266,8 @@ async function pruebasNavegacion(browser, ancho) {
   await login(page);
   // Espera la aplicación visible como confirmación de carga después de verificar usuario.
   await page.locator('.app').waitFor({ state: 'visible' });
+  // Mantiene visible la identificación después de cambiar del acceso a las pantallas privadas.
+  assert.equal(await page.locator('#appIdentity').isVisible(), true);
   // Recorre las secciones principales para detectar regresiones de navegación.
   for (const [key, title] of [['liquidez', 'Liquidez'], ['inversiones', 'Inversiones'], ['resultados', 'Resultados'], ['gastos', 'Gastos'], ['objetivos', 'Objetivos'], ['patrimonio', 'Patrimonio total']]) {
     // Pulsa cada sección y comprueba que su título coincide con el destino.
@@ -445,6 +459,10 @@ async function pruebasNavegacion(browser, ancho) {
     const page = await context.newPage(); await page.goto(ORIGEN);
     // Exige un mensaje claro de conexión fallida en lugar de una pantalla en blanco.
     await page.getByText('No se ha podido cargar la conexión.', { exact: false }).waitFor();
+    // Conserva versión y nombre aunque el CDN de Supabase falle, para identificar la web abierta.
+    assert.equal(await page.locator('#appVersion').innerText(), 'V2');
+    // La identificación pública no depende de que pueda verificarse una cuenta.
+    assert.equal(await page.locator('#appIdentity').isVisible(), true);
     // No permite enviar credenciales cuando falta el cliente inicializado.
     assert.equal(await page.locator('#loginSubmit').isDisabled(), true);
     // Comprueba que el usuario conserva un camino de reintento visible.

@@ -122,3 +122,24 @@ Ese commit no cambia el contenido de la instantánea V2 ni crea una funcionalida
   respaldado ni mueve V2; no constituye una nueva versión funcional V3.
 - La URL raíz anterior de Cloudflare no se garantiza vinculada a la rama renombrada.
   Se conserva la configuración externa y se usa el enlace específico de V0.
+
+
+## Identificación visible de Financer V2 — 10 de noviembre de 2026
+
+- Petición expresa: mostrar nombre y versión antes de las pruebas manuales y rehacer
+  el respaldo con el mismo nombre financer_V2. Excepción autorizada a no mover versiones.
+- Origen V0: `f882f1b21859615aa1f2927a28cce7e487fb25bf`.
+- Respaldo previo: `respaldo-pre-identificacion-V2-2026-11-10`, sobre ese SHA.
+- V2 anterior preservado como `archivo-financer_V2-2026-11-10`, sobre
+  `0572ef543f74a96ea72632046da3f549d9d39d94`.
+- Rama preparatoria: `codex/identificacion-v2`, para incorporar a `financer_V0`.
+- Cambios: cabecera pública, nombre/pestaña Financer · V2, revisión 2026-11-10.1 y
+  etiqueta Pruebas · financer_V0 solo en su hostname. Nuevo js/version.js independiente
+  de Auth; estilos adaptados a móvil y comprobaciones de identificación en el navegador.
+- Documentación: petición/interpretación/implementación en Codex_Financer y reglas
+  de mantenimiento de la versión, arquitectura, migración, lectura y verificación.
+- Sin cambios de dependencias, esquema, autenticación, posiciones o datos financieros.
+- Comprobaciones: sintaxis, pruebas existentes y visibilidad pública de la identidad
+  antes/después del acceso y sin CDN. Publicación y referencia V2 se verifican al cierre.
+- Recuperación: conservar V2 anterior mediante su archivo; revertir la propuesta
+  en V0 si se quiere retirar la cabecera. Git no cambia los registros de Supabase.

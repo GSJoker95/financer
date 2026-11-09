@@ -33,6 +33,7 @@ explicación JSON; no se incluyen node_modules, capturas temporales ni secretos.
 | --- | --- |
 | `index.html` | Pantallas, formularios y orden de scripts; cada línea lleva comentario HTML. |
 | `css/estilos.css` | Estilos de ordenador/móvil; selectores y propiedades separados y comentados. |
+| `js/version.js` | Identificación pública comentada de nombre, entrega, revisión y sitio; añadida después de la revisión inicial V2. |
 | `js/supabase-config.js` | Conexión pública única; comentarios de cada instrucción y de la dependencia del CDN. |
 | `js/modelo.js` | Árbol, nombres y navegación; comentarios de validaciones, recorridos y resultados. |
 | `js/estrategias.js` | Recorridos acordados; comentarios por estrategia y alcance pendiente. |
@@ -62,7 +63,8 @@ sus archivos para comentarlos destruiría el significado de esas instantáneas.
 ## 3. Cómo funciona y qué necesita en ejecución
 
 1. Un alojamiento estático sirve index.html, css y js por HTTP(S).
-2. El navegador carga el SDK Supabase 2.95.3 desde el CDN fijado en index.html.
+2. version.js identifica la entrega antes de comprobar el acceso. El navegador
+   carga después el SDK Supabase 2.95.3 desde el CDN fijado en index.html.
 3. supabase-config.js crea el cliente con la URL y clave pública del proyecto existente.
 4. modelo.js y estrategias.js aportan reglas y contratos, sin consultas ni escrituras.
 5. datos.js prepara el repositorio; interfaz.js prepara las pantallas y sus eventos.
@@ -84,7 +86,7 @@ repositorio, después de obtenerlo y situarse en la rama que se quiera comprobar
 ```sh
 # Descarga las versiones exactas del lockfile sin ejecutar scripts de instalación de terceros.
 npm ci --ignore-scripts
-# Detecta errores de sintaxis en los seis JavaScript de la aplicación.
+# Detecta errores de sintaxis en todos los JavaScript de la aplicación, incluida la versión.
 npm run check
 # Verifica reglas y repositorio con datos ficticios y sin navegador.
 npm test
@@ -200,3 +202,19 @@ conservan. Se ejecutan además las pruebas existentes y la revisión Git de espa
 Estas comprobaciones no añaden un login real ni escrituras financieras nuevas.
 Continúa pendiente la prueba manual autenticada del propietario y los formularios
 de posiciones activas, redes, activos, pares y Trades de cada estrategia.
+
+
+## Identificación y sustitución autorizada del respaldo V2
+
+La versión visible se mantiene en `js/version.js`: nombre Financer, entrega V2 y
+revisión 2026-11-10.1. La rama V0 se presenta solo en su dirección de trabajo; una
+vista previa genérica muestra el hostname real para no atribuirle una rama falsa.
+
+Al preparar nuevas entregas, actualizar esos datos y las revisiones de recursos
+HTML, mantener comentarios y comprobar la identificación antes/después del acceso
+y con el CDN caído. La versión npm del manifiesto sigue identificando las herramientas
+y no se utiliza para decidir qué respaldo está comprobando el propietario.
+
+Por petición expresa del 10 de noviembre, V2 se actualiza tras verificar esta
+identificación. Su estado anterior se conserva en `archivo-financer_V2-2026-11-10`.
+No trasladar esta excepción a los respaldos futuros sin una instrucción equivalente.

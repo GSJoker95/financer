@@ -24,6 +24,10 @@
   Al cerrar y verificar un cambio significativo crear el siguiente `financer_VN`
   disponible (V3, V4, etc.) y continuar desarrollando en V0. Registrar SHA, alcance
   y recuperación en Control_Cambios.md. No reutilizar nombres de respaldos existentes.
+- Mantener nombre, entrega y revisión visibles en `js/version.js`. Al preparar una
+  versión nueva actualizar ese identificador, las revisiones de recursos en HTML y
+  sus comprobaciones de navegador para no presentar una entrega antigua como actual.
+  V0 es la rama editable, no el número de la entrega mostrada.
 - Git respalda código/documentación; datos y esquema necesitan su propia recuperación.
 - Mantener coste cero, HTML/CSS/JavaScript, Supabase y alojamiento estático mientras
   no se acuerde otro diseño. No introducir APIs de bancos, brokers o cuentas de inversión.
