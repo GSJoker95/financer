@@ -1,74 +1,148 @@
+<!-- Declara HTML moderno para que el navegador no use reglas antiguas de compatibilidad. -->
 <!DOCTYPE html>
+<!-- Identifica el idioma español para pronunciación, traducción y accesibilidad. -->
 <html lang="es">
+<!-- Agrupa metadatos que el navegador necesita antes de presentar el contenido. -->
 <head>
+  <!-- Usa UTF-8 para conservar acentos y símbolos financieros al cambiar de plataforma. -->
   <meta charset="UTF-8">
+  <!-- Adapta el ancho inicial a la pantalla del móvil y evita una vista de escritorio reducida. -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Nombra la pestaña como Financer sin depender de una versión visual desactualizada. -->
   <title>Financer</title>
+  <!-- Carga los estilos mediante una ruta relativa para servir también desde una subcarpeta. -->
   <link rel="stylesheet" href="css/estilos.css">
+<!-- Termina la configuración previa a la parte visible de la página. -->
 </head>
+<!-- Abre el contenido que verán el propietario y sus ayudas de accesibilidad. -->
 <body>
+  <!-- Muestra espera accesible mientras acceso.js comprueba la sesión, evitando una pantalla vacía. -->
   <p id="loadingScreen" class="loading" role="status">Comprobando acceso…</p>
+  <!-- Explica el requisito de JavaScript si el navegador no ejecuta los scripts. -->
   <noscript>Activa JavaScript en tu navegador para utilizar Financer.</noscript>
+  <!-- Mantiene el acceso oculto hasta que el controlador decida si hace falta iniciar sesión. -->
   <section id="loginScreen" class="login-card" hidden>
+    <!-- Identifica el formulario de acceso con el nombre correcto del proyecto. -->
     <h1>Acceso a Financer</h1>
+    <!-- Agrupa credenciales para enviar también al pulsar Enter dentro de un campo. -->
     <form id="loginForm">
+      <!-- Asocia la etiqueta de correo a su campo para facilitar lectura y selección. -->
       <label for="loginEmail">Correo electrónico</label>
+      <!-- Exige formato de correo y permite que el gestor de contraseñas reconozca al usuario. -->
       <input id="loginEmail" type="email" required autocomplete="username">
+      <!-- Asocia la etiqueta de contraseña a su campo correspondiente. -->
       <label for="loginPassword">Contraseña</label>
+      <!-- Oculta visualmente la contraseña y admite autocompletado de una cuenta existente. -->
       <input id="loginPassword" type="password" required autocomplete="current-password">
+      <!-- Envía el formulario con un ID que permite bloquear intentos repetidos. -->
       <button id="loginSubmit" type="submit" class="primary">Entrar</button>
+      <!-- Reserva un aviso accesible para errores de acceso sin abrir ventanas adicionales. -->
       <p id="loginError" role="alert"></p>
+    <!-- Cierra los campos que forman una única solicitud de inicio de sesión. -->
     </form>
+    <!-- Permite reintentar la conexión sin enviar credenciales como si fuera un nuevo acceso. -->
     <button id="retryAccess" class="secondary" type="button">Reintentar</button>
+  <!-- Termina la pantalla de acceso separada de los datos privados. -->
   </section>
+  <!-- Oculta toda la aplicación privada hasta verificar la identidad del usuario. -->
   <div class="app" hidden>
+    <!-- Separa la navegación lateral del contenido de la sección seleccionada. -->
     <aside>
+      <!-- Controla el menú móvil y comunica su estado y destino a las ayudas de accesibilidad. -->
       <button id="mobileToggle" type="button" aria-expanded="false" aria-controls="nav">☰ Menú</button>
+      <!-- Presenta la identidad de la aplicación dentro de la zona de navegación. -->
       <h1>Financer</h1>
+      <!-- Identifica el menú principal para que pueda localizarse sin depender de su posición visual. -->
       <nav id="nav" aria-label="Navegación principal">
+        <!-- Vincula el acceso a Patrimonio total con su identificador interno de pantalla. -->
         <button type="button" data-page="patrimonio">Patrimonio total</button>
+        <!-- Permite abrir Liquidez sin codificar categorías concretas en el HTML. -->
         <button type="button" data-page="liquidez">Liquidez</button>
+        <!-- Permite abrir Inversiones y sus categorías cargadas del repositorio. -->
         <button type="button" data-page="inversiones">Inversiones</button>
+        <!-- Reserva el submenú que se generará a partir de las categorías reales de inversión. -->
         <div class="nav-sub" id="investmentNav"></div>
+        <!-- Abre el catálogo compartido de plataformas, independiente del árbol de categorías. -->
         <button type="button" data-page="plataformas">Plataformas</button>
+        <!-- Expone Resultados como apartado pendiente sin presentar cálculos inventados. -->
         <button type="button" data-page="resultados">Resultados <small>Pendiente</small></button>
+        <!-- Conserva Gastos en la navegación indicando que todavía no está desarrollado. -->
         <button type="button" data-page="gastos">Gastos <small>Pendiente</small></button>
+        <!-- Conserva Objetivos con el mismo aviso explícito de funcionalidad pendiente. -->
         <button type="button" data-page="objetivos">Objetivos <small>Pendiente</small></button>
+      <!-- Termina los destinos que se controlan mediante delegación de eventos del menú. -->
       </nav>
+      <!-- Permite cerrar sesión fuera del menú plegable para mantener la salida accesible en móvil. -->
       <button id="logoutButton" class="secondary logout" type="button">Cerrar sesión</button>
+    <!-- Termina la zona lateral de marca, navegación y salida. -->
     </aside>
+    <!-- Marca el contenido principal para navegación accesible entre regiones de la página. -->
     <main>
+      <!-- Agrupa título y acciones para que puedan redistribuirse en pantallas pequeñas. -->
       <div class="top">
+        <!-- Prepara título enfocable y subtítulo; el foco orienta al usuario después de navegar. -->
         <div><h2 id="heading" tabindex="-1">Patrimonio total</h2><p class="muted" id="subtitle"></p></div>
+        <!-- Agrupa las acciones principales de la sección para compartir su distribución responsive. -->
         <div class="actions">
+          <!-- Permite verificar de nuevo la sesión y leer datos actualizados sin cerrar la cuenta. -->
           <button class="secondary" id="refreshButton" type="button">Actualizar datos</button>
+          <!-- Reserva Añadir, inicialmente oculto hasta que exista una colección donde crear elementos. -->
           <button class="primary" id="addButton" type="button" hidden>+ Añadir</button>
+        <!-- Termina el grupo de acciones principales del encabezado. -->
         </div>
+      <!-- Termina el encabezado adaptable de la sección. -->
       </div>
+      <!-- Reserva la ruta de categorías para volver a antecesores de cualquier profundidad. -->
       <nav class="breadcrumb" id="breadcrumb" aria-label="Ruta de categorías"></nav>
+      <!-- Anuncia resultados de guardado o carga sin interrumpir la lectura de la página. -->
       <p id="dataStatus" role="status" aria-live="polite"></p>
+      <!-- Reserva los registros y avisos que dibuja la interfaz, sin incluir datos financieros en el HTML. -->
       <section class="card" id="content" aria-label="Contenido"></section>
+      <!-- Aclara que las operaciones de esta interfaz persisten en la cuenta, no solo en memoria. -->
       <p class="footnote">Los cambios de categorías y plataformas se guardan en tu cuenta.</p>
+    <!-- Termina la región de contenido que cambia con la navegación. -->
     </main>
+  <!-- Termina el contenedor privado que se oculta al cerrar sesión. -->
   </div>
+  <!-- Crea un editor modal nativo identificado por su título para facilitar teclado y accesibilidad. -->
   <dialog id="editor" aria-labelledby="dialogTitle">
+    <!-- Agrupa la edición para reutilizar validación y envío tanto en altas como en cambios de nombre. -->
     <form id="editorForm">
+      <!-- Reserva el título que distinguirá crear, editar y el tipo de registro afectado. -->
       <h3 id="dialogTitle">Nuevo elemento</h3>
+      <!-- Asocia la etiqueta Nombre al control editable. -->
       <label for="itemName">Nombre</label>
+      <!-- Exige un nombre de hasta 80 caracteres, coincidiendo con la validación de JavaScript. -->
       <input id="itemName" required maxlength="80" autocomplete="off">
+      <!-- Mantiene los errores del editor dentro del diálogo para poder corregir sin perder el campo. -->
       <p id="editorError" role="alert"></p>
+      <!-- Agrupa Cancelar y Guardar para distinguir abandono y confirmación de edición. -->
       <div class="dialog-actions">
+        <!-- Cancela sin enviar el formulario ni modificar registros. -->
         <button type="button" class="secondary" id="cancel">Cancelar</button>
+        <!-- Envía el formulario y permite bloquear Guardar mientras se confirma la escritura. -->
         <button type="submit" class="primary">Guardar</button>
+      <!-- Termina el grupo de acciones del diálogo. -->
       </div>
+    <!-- Termina los campos que pertenecen a la misma edición. -->
     </form>
+  <!-- Cierra el editor que acceso.js también limpiará cuando cambie la sesión. -->
   </dialog>
+  <!-- Carga una versión fijada del SDK público antes de crear el cliente de Supabase. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.3/dist/umd/supabase.min.js"></script>
+  <!-- Inicializa la conexión una sola vez para compartirla entre los demás módulos. -->
   <script src="js/supabase-config.js"></script>
+  <!-- Carga las reglas de nombres y árbol antes del repositorio y de la interfaz. -->
   <script src="js/modelo.js"></script>
+  <!-- Define los recorridos Crypto antes de que la interfaz muestre sus avisos. -->
   <script src="js/estrategias.js"></script>
+  <!-- Carga el repositorio que utiliza las validaciones ya disponibles. -->
   <script src="js/datos.js"></script>
+  <!-- Prepara la presentación y sus eventos antes de que acceso.js entregue los datos. -->
   <script src="js/interfaz.js"></script>
+  <!-- Arranca la comprobación de sesión después de tener disponibles sus dependencias. -->
   <script src="js/acceso.js"></script>
+<!-- Termina la región visible y los scripts que la controlan. -->
 </body>
+<!-- Cierra el documento HTML completo. -->
 </html>

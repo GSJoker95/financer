@@ -104,3 +104,21 @@ No se utilizaron claves privadas en el frontend ni se exportaron datos financier
   El evento de Auth limpia la UI inmediatamente y difiere las nuevas consultas
   fuera de su callback. La navegación se guarda con una clave por usuario.
 - Las pruebas no escriben en el proyecto Supabase real.
+
+
+## Documentación y versionado desde financer_V2
+
+La rama viva pasa a ser `financer_V0`, nombre nuevo de `desarrollo-v1.8`. La versión
+comentada se conserva en `financer_V2`. Los siguientes cierres significativos crean
+`financer_V3`, V4 y sucesivos; los respaldos se preservan, no se usan para desarrollar.
+
+Por instrucción del propietario, cada nueva instrucción de código propio debe
+explicar qué hace y por qué en un comentario. HTML, CSS, JavaScript, YAML y Git ignore
+admiten comentarios; los JSON se explican en `Configuracion_Comentada.md`. Las reglas
+se conservan sintácticamente válidas. No se editan dependencias de terceros ni
+respaldos anteriores para añadir comentarios retroactivamente.
+
+`Codex_Financer.txt` se limita a peticiones de estructura y a la respuesta
+«Lo que pides / Lo que entiendo / Lo que hago». El historial técnico se conserva
+en este documento, Control_Cambios.md y las guías asociadas, con detalle de migración
+en `Documentacion_y_Migracion.md`.

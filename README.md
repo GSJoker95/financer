@@ -25,10 +25,15 @@ Se necesita Node.js 20 o superior para las comprobaciones. La aplicación sigue
 siendo estática: Node no es necesario en el alojamiento.
 
 ```sh
+# Instala las versiones fijadas sin ejecutar scripts de instalación.
 npm ci --ignore-scripts
+# Revisa sintaxis de todos los JavaScript de la aplicación.
 npm run check
+# Comprueba modelo y repositorio con datos ficticios.
 npm test
+# Prepara el navegador que se utilizará en las pruebas aisladas.
 npx playwright install chromium
+# Ejecuta la interfaz con toda la red interceptada y sin cuentas reales.
 npm run test:browser
 ```
 
@@ -44,9 +49,10 @@ registros financieros reales para pruebas de escritura.
 
 ## Publicación y recuperación
 
-La rama de trabajo acordada es `desarrollo-v1.8`. Las propuestas se preparan en
+La rama viva de trabajo es `financer_V0` (antes `desarrollo-v1.8`). Las propuestas se preparan en
 ramas `codex/*` nacidas de ella. `main` y los respaldos históricos no se actualizan
-automáticamente. El enlace GitHub Pages comunicado servía `main` durante la auditoría;
+automáticamente. `financer_V2` conserva la versión comentada; tras cambios significativos
+se crearán V3, V4, etc., sin modificar respaldos anteriores. El enlace GitHub Pages comunicado servía `main` durante la auditoría;
 no usarlo como prueba de que desarrollo está publicado. La configuración de
 Cloudflare y sus despliegues debe verificarse por separado.
 
@@ -60,3 +66,8 @@ registros. Volver a un commit anterior revierte código, no cambios de datos.
 
 Ver [arquitectura](docs/Arquitectura.md), [verificación manual](docs/Verificacion.md)
 y [control de cambios](Control_Cambios.md).
+
+Ver también la [guía de documentación y migración](docs/Documentacion_y_Migracion.md)
+y la [configuración JSON explicada línea por línea](docs/Configuracion_Comentada.md).
+`Codex_Financer.txt` recoge las peticiones de estructura con el formato solicitado
+por el propietario; los detalles técnicos permanecen en el código y las guías.

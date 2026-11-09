@@ -64,3 +64,39 @@ anteriores como si hubieran sido probadas.
   No se añade ni modifica código ejecutable; no se necesitan nuevas pruebas funcionales.
 - Base de datos: sin cambios.
 - Reversión: revertir esta propuesta documental; conservar intacto el respaldo previo.
+
+
+## financer_V2 — código comentado y rama viva V0 — 9 de noviembre de 2026
+
+- Petición: comentar cada línea de código propio y revisar todos los archivos;
+  continuar documentando cada instrucción futura y preparar la portabilidad.
+- Ajuste de Codex_Financer: solo peticiones sobre la estructura con «Lo que pides /
+  Lo que entiendo / Lo que hago». Los detalles técnicos quedan en código y guías.
+- Origen: `3d084c43509c651958eb95bc9b171fe590c9c424` de `desarrollo-v1.8`.
+- Respaldo previo: `respaldo-pre-financer_V2`, sobre ese mismo SHA.
+- Preparación: rama `codex/comentarios-v2`; incorporación a la rama de desarrollo.
+- Respaldo de cierre: `financer_V2`, creado después de comprobar la versión comentada.
+- Rama viva: `financer_V0`, nuevo nombre de `desarrollo-v1.8`. No se renombra main.
+- Próximos cambios significativos: trabajar desde V0, verificar y crear V3, V4, etc.
+  No mover versiones numeradas ya creadas.
+- Archivos revisados: los 23 versionados al inicio. Se comentan los 11 JS/CJS,
+  index.html, css/estilos.css, workflow y .gitignore; se revisan los seis documentos
+  previos y se añaden dos guías. Los dos JSON conservan exactamente sus bytes.
+- Cambio ejecutable permitido: filtros de ramas de GitHub Actions adaptados a V0.
+  Comentarios y separación visual del CSS no deben alterar la aplicación ni sus pruebas.
+- Verificación: comparación de estructura sintáctica JavaScript, árbol CSS y HTML
+  con el origen; validación JSON/YAML; pruebas existentes y git diff --check.
+  Resultados locales: equivalencia correcta, sintaxis correcta, 11 pruebas unitarias
+  y todos los escenarios de navegador superados en 1280/390 px y fallos controlados.
+  Los SHAs y la CI remota se contrastan con la propuesta y las referencias Git.
+- Dependencias: sin cambios en package.json/package-lock.json. Las herramientas
+  auxiliares de comparación se instalan fuera del repositorio, no en la aplicación.
+- Datos y esquema Supabase: sin cambios ni nuevas pruebas de escritura reales.
+- Cloudflare: el renombrado Git no garantiza cambiar su rama de producción; verificar
+  el despliegue de V0 y documentar la URL real. No recrear desarrollo-v1.8 para simularlo.
+- Recuperación: referencia previa para volver al código sin comentarios; V2 para
+  volver a esta versión documentada. Git no restaura los datos de la cuenta.
+
+El cambio de referencia a V0 puede acompañarse de un commit sin cambios de archivos
+para activar sus comprobaciones e integración de publicación bajo el nombre nuevo.
+Ese commit no cambia el contenido de la instantánea V2 ni crea una funcionalidad nueva.
