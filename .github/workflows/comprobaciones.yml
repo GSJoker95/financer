@@ -1,23 +1,46 @@
+# Nombra la comprobación para reconocerla en el historial de GitHub Actions.
 name: Comprobaciones de Financer
+# Define qué eventos deben revisar el código antes o después de incorporarlo.
 on:
+  # Comprueba las propuestas dirigidas a la rama de trabajo permanente.
   pull_request:
-    branches: [desarrollo-v1.8]
+    # La rama pasa a llamarse financer_V0 por indicación del propietario.
+    branches: [financer_V0]
+  # Comprueba también cambios enviados a la rama de trabajo o a ramas preparatorias.
   push:
-    branches: [desarrollo-v1.8, 'codex/**']
+    # Los respaldos financer_V2, V3, etc. se conservan sin trabajo de desarrollo sobre ellos.
+    branches: [financer_V0, 'codex/**']
+# Restringe el token automático a lo imprescindible para ejecutar las pruebas.
 permissions:
+  # Permite descargar el código, pero no escribir ni desplegar desde este workflow.
   contents: read
+# Agrupa las tareas que deben terminar correctamente.
 jobs:
+  # Identifica el trabajo que agrupa sintaxis, pruebas de modelo y navegador.
   comprobar:
+    # Usa un ejecutor Linux estándar, sin contratar infraestructura propia.
     runs-on: ubuntu-latest
+    # Limita una ejecución atascada para no consumir recursos indefinidamente.
     timeout-minutes: 10
+    # Conserva el orden: preparar, instalar, validar y probar en navegador.
     steps:
+      # Descarga el commit exacto que GitHub está comprobando.
       - uses: actions/checkout@v4
+      # Prepara una versión de Node compatible con las herramientas del repositorio.
       - uses: actions/setup-node@v4
+        # Configura Node y la reutilización de las descargas de npm.
         with:
+          # Elige Node 22 para que las pruebas sean repetibles entre ejecuciones.
           node-version: '22'
+          # Usa package-lock.json como base de la caché sin omitir npm ci.
           cache: npm
+      # Instala versiones bloqueadas sin ejecutar scripts de instalación de dependencias.
       - run: npm ci --ignore-scripts --no-audit --no-fund
+      # Rechaza errores de sintaxis en los JavaScript de la aplicación.
       - run: npm run check
+      # Comprueba árboles, navegación y repositorio con datos ficticios.
       - run: npm test
+      # Prepara Chromium y sus librerías Linux exclusivamente dentro del ejecutor de pruebas.
       - run: npx playwright install --with-deps chromium
+      # Ejecuta la interfaz real con toda la red interceptada, sin cuentas de Supabase reales.
       - run: npm run test:browser

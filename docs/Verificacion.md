@@ -2,7 +2,9 @@
 
 ## Antes de empezar
 
-Usar la URL de pruebas de la rama `desarrollo-v1.8`, una vez confirmado su despliegue.
+Usar la URL de pruebas de la rama `financer_V0`, una vez confirmado su despliegue.
+Cloudflare puede conservar la rama de producción anterior tras un renombrado:
+comprobar el commit o el enlace de despliegue de GitHub antes de probar una versión.
 El enlace público de GitHub Pages de `main` puede seguir mostrando la versión anterior.
 Las pruebas automáticas ya verifican los siguientes recorridos con datos ficticios;
 esta lista sirve para la comprobación final con la cuenta del propietario.
@@ -39,7 +41,10 @@ si el elemento llegó a guardarse antes de repetirlo.
 
 ## Reversión
 
-El código puede volver al commit anterior de `desarrollo-v1.8` mediante una reversión
+El código puede volver al commit anterior de `financer_V0` mediante una reversión
 de la propuesta de estructura flexible. No se requiere revertir esquema: esta entrega
 no lo modifica. Los elementos creados manualmente son datos de Supabase y no desaparecen
 al revertir Git; borrar solo los elementos de prueba identificados.
+
+Para volver a la versión comentada, usar la referencia Git `financer_V2`; V0 es la
+rama de trabajo. Preservar V2 sin moverla y revisar siempre los datos por separado.

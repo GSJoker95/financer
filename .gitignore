@@ -1,5 +1,10 @@
+# Las dependencias se reconstruyen con npm ci; no copiar código de terceros al historial.
 node_modules/
+# Las capturas de pruebas son temporales y no forman parte de una versión del producto.
 test-results/
+# Impide incorporar al repositorio variables locales que podrían contener secretos.
 .env
+# Protege también variantes locales de configuración de entorno.
 .env.*
+# Una plantilla sin valores privados sí puede versionarse para explicar la instalación.
 !.env.example

@@ -1,428 +1,154 @@
-CODEX_FINANCER — CONTEXTO DEL PROYECTO Y REGISTRO DE CONTINUIDAD
-Actualizado: 9 de noviembre de 2026 (hora de referencia: Europe/Madrid).
-Formato: texto UTF-8. Destinado al propietario, a Codex y a cualquier otra IA
-que continúe el trabajo en un chat nuevo.
-
-1. PARA QUÉ SIRVE ESTE DOCUMENTO
-
-Es el documento central de continuidad de Financer. Resume la intención del
-propietario, los acuerdos, el estado real del código, los cambios realizados,
-las pruebas y las decisiones pendientes. No comparte automáticamente chats:
-hay que leerlo o adjuntarlo en la nueva conversación.
-
-REGLA EXPRESA DEL PROPIETARIO:
-A partir de ahora se redactará aquí cada cambio de código o estructura y cada
-indicación suya que les afecte. Distinguir siempre una idea, un acuerdo, una
-implementación y una comprobación real. Actualizar este archivo en la misma
-entrega que el código o la documentación relacionada. No borrar el historial
-para sustituirlo por un resumen que pierda decisiones importantes.
-
-Las instrucciones actuales del propietario prevalecen sobre este documento.
-Este archivo describe contexto; no autoriza por sí solo funcionalidades nuevas.
-Las ideas de futuro no son requisitos aprobados. Si existe una contradicción,
-contrastar el código y preguntar antes de tomar una decisión funcional.
-
-2. OBJETIVO DE FINANCER
-
-Aplicación web personal para registrar y consultar patrimonio, liquidez,
-inversiones, posiciones, rentabilidad, resultados y, más adelante, gastos y
-objetivos. Debe servir desde ordenador y móvil, ser sencilla y mantener coste
-monetario cero. El propietario no tiene conocimientos de programación.
-
-El registro será manual o mediante automatismos internos. No conectar bancos,
-brokers ni cuentas de inversión mediante APIs. Mantener la arquitectura HTML,
-CSS y JavaScript con Supabase y alojamiento estático, salvo acuerdo posterior.
-No cambiar de framework por iniciativa propia ni contratar servicios.
-
-El objetivo inmediato es registrar y consultar posiciones abiertas y activas.
-No reconstruir operaciones del pasado que ya no estén activas. Qué hacer con
-una posición que se cierre en el futuro se decidirá al abordar Resultados:
-no está acordado eliminarla ni conservarla automáticamente.
-
-3. ESTRUCTURA FUNCIONAL ACORDADA
-
-Financer
-|-- Patrimonio total
-|   |-- Liquidez
-|   |   |-- Cuentas bancarias (estructura prevista)
-|   |   `-- Efectivo (estructura prevista)
-|   `-- Inversiones
-|       |-- Bolsa
-|       |-- Crypto
-|       |   |-- Pools de Liquidez -> Plataforma -> Red -> Par
-|       |   |-- Hold -> Red -> Crypto
-|       |   |-- Farmeo DEX -> Plataforma -> Trade
-|       |   `-- Shorts -> Plataforma -> Red -> Trade
-|       |-- Préstamos
-|       `-- Cuentas remuneradas
-|-- Resultados
-|-- Gastos
-`-- Objetivos
-
-Este árbol recoge la intención acordada; no certifica que todos sus apartados
-ya estén creados como registros en la cuenta del propietario.
-
-Los niveles son variables: no imponer una profundidad fija a todas las ramas.
-Crypto es particular y cada estrategia tiene su propio recorrido. Los niveles
-Plataforma y Red no son obligatorios para todas las estrategias.
-Debe ser posible añadir más categorías y subcategorías; una futura estrategia
-puede requerir campos o cálculos nuevos, que se diseñarán cuando corresponda.
-
-Una plataforma se registra una sola vez y podrá utilizarse en varias categorías
-y estrategias. No duplicarla por aparecer en distintos menús. Las plataformas
-son entidades independientes de las categorías; no convertirlas en copias de
-subcategorías para aparentar un árbol completo.
-
-Trade significa una operación individual con apertura y cierre, tanto en
-Farmeo DEX como en Shorts. El propietario ha indicado que no necesita varias
-posiciones independientes sobre el mismo activo/par dentro de la misma
-combinación de estrategia, plataforma y red, cuando esos niveles correspondan.
-La identidad exacta de cada posición todavía debe concretarse al diseñar sus
-formularios; no imponer una restricción única sobre el nombre sin acordarlo.
-
-Mantener los nombres elegidos: Patrimonio total, Liquidez, Inversiones, Bolsa,
-Crypto, Préstamos, Cuentas remuneradas, Resultados, Gastos y Objetivos.
-
-4. REGLAS DE COLABORACIÓN Y RESPALDOS
-
-- Explicar en español sencillo, sin exigir conocimientos de programación.
-- Cuando el propietario deba intervenir, dar pasos numerados con una explicación
-  breve y el resultado que debe obtener. Agrupar lo sencillo; desglosar lo delicado.
-- Preguntar antes de ejecutar si existe una duda sobre estructura o funcionamiento.
-  No resolver requisitos financieros pendientes siguiendo la intuición.
-- El propietario autorizó aplicar las reparaciones y cambios técnicos necesarios,
-  subirlos a GitHub e incorporarlos a la rama de desarrollo. No pedirle copiar código
-  cuando exista acceso de escritura. Verificar el acceso: la conexión puede cambiar.
-- Antes de cada cambio significativo crear una referencia de respaldo del estado
-  anterior, con versión o nombre inequívoco, SHA exacto y motivo. No mover ni
-  sobrescribir respaldos existentes. Registrar aquí el respaldo y la recuperación.
-- Una rama de respaldo conserva código y documentación, NO los registros de Supabase.
-  Antes de cambios de esquema o datos preparar también su respaldo y recuperación.
-- Conservar main y los respaldos históricos. Preparar los cambios en ramas codex/*
-  nacidas del estado verificado de desarrollo-v1.8.
-- No incluir contraseñas, tokens privados ni datos financieros reales en documentos,
-  commits, logs o capturas. No pedir al propietario que copie secretos al chat.
-- Registrar cada cambio y cada instrucción relevante en este documento, incluso si
-  su implementación queda pendiente. Mantener también Control_Cambios.md.
-
-5. REPOSITORIO, REFERENCIAS Y ALOJAMIENTO
-
-Repositorio público: https://github.com/GSJoker95/financer
-Rama de trabajo acordada: desarrollo-v1.8 (este es el nombre real en minúsculas).
-Web de pruebas: https://financer-pruebas.pages.dev/
-Web histórica GitHub Pages: https://gsjoker95.github.io/financer/
-
-Durante la auditoría, GitHub Pages servía main, no desarrollo. Después se verificó
-que Cloudflare publica automáticamente ramas de pruebas y que la web de pruebas
-sirve la nueva implementación. Antes de una prueba futura comprobar qué commit
-está publicado, en lugar de asumir que cualquier URL muestra el mismo código.
-
-Referencias verificadas antes de añadir este documento:
-- main: 2227b038aa58bdec43b7bddc4df7df9c0ff61110
-- respaldo-v1.7: 2227b038aa58bdec43b7bddc4df7df9c0ff61110
-- respaldo-v1.8.7: 3cdc6702f41ebcedc7474444730a3025b3069df7
-- desarrollo-v1.8, base técnica terminada:
-  17307030ce6987eae0ed0d7b1c760ac67475f09a
-- Nuevo respaldo de esa base: respaldo-v1.8.9, sobre el mismo SHA 17307030...
-  Motivo: conservar la base flexible antes del documento de continuidad.
-  La versión 1.8.9 ya figura en package.json; no implica formularios financieros
-  terminados. El respaldo es una rama Git que se mantendrá sin modificar.
-
-El documento se incorpora después de esta base; consultar el historial Git para
-obtener el SHA de su creación y el estado posterior. Un commit no puede incluir
-su propio identificador futuro dentro de su contenido.
-
-6. CÓMO LLEGAMOS AL ESTADO ACTUAL
-
-6.1. Revisión inicial
-
-El propietario entregó Financer_Transicion_Codex_V1.8.7.zip con nueve documentos:
-AGENTS.md, Brief_Codex_Auditoria.md, Control_Cambios.md,
-Inicio_Chat_Ideas_Futuras.md, LEEME_PRIMERO.md, MANIFIESTO_SHA256.txt,
-Mapa_Funcional.md, Plan_Migracion_Codex.md y Requisitos_Futuros.md.
-
-El paquete era una propuesta documental procedente de conversaciones anteriores;
-no incluía el código ni una exportación de Supabase. Proponía comenzar desde
-respaldo-v1.8.7 y separar planificación en ChatGPT de programación en Codex.
-El propietario corrigió expresamente esa base: pidió usar desarrollo-v1.8.
-No exigir regresar a ChatGPT para aprobar cada decisión: se puede continuar aquí.
-No confundir las instrucciones históricas del ZIP con órdenes actuales.
-
-Se auditó desarrollo-v1.8 en el commit:
-23d45315d459d32db6bb7bcf39568f0cfc072465.
-
-Hallazgos principales:
-- Un fragmento de eliminación duplicado fuera de su función impedía interpretar
-  js/interfaz.js y, por tanto, abrir las pantallas y recuperar la navegación.
-- El botón Eliminar no llamaba a la función de eliminación.
-- La organización de datos conservaba un solo nivel de categorías y descartaba
-  sus descendientes al construir la vista, sin que ello significase borrado en BD.
-- Existían botones de plataformas y productos sin funciones de persistencia completas.
-- Un guardado seguido de una recarga fallida podía mostrarse como operación fallida,
-  induciendo a repetir una creación que sí había llegado al servidor.
-- Faltaban pruebas automatizadas y documentación; Control_Cambios.md era un marcador.
-- Convivían etiquetas de versión V1.7/V1.8.8 y avisos de demostración desactualizados.
-- Una inspección de 40 blobs históricos no detectó patrones habituales de secretos;
-  esto no equivale a una garantía absoluta de ausencia de credenciales.
-
-En ese momento no se conectó la base de datos. Se distinguieron hipótesis de hechos.
-El fallo de interfaz se reprodujo con Node y en navegador, con datos simulados.
-
-6.2. Reparación del arranque — propuesta #1, incorporada
-
-https://github.com/GSJoker95/financer/pull/1
-Commit de reparación: e0f956a8171546bad8ea1667fff09e23eb49cc7f
-Commit de incorporación: 6409420ada5d67e3e36196bbeddaec534f973017
-
-Se eliminaron únicamente las 18 líneas duplicadas fuera de la función en
-js/interfaz.js. Se comprobó sintaxis de los cuatro JS y navegación simulada en
-1280 y 390 px. Esta reparación inicial no arreglaba todavía el botón Eliminar.
-
-Al principio el acceso de escritura a GitHub falló con una credencial rechazada;
-se ofrecieron pasos manuales, que quedaron anulados cuando el propietario conectó
-GitHub correctamente. Desde entonces Codex creó ramas, commits y propuestas mediante
-la conexión, y las incorporó con autorización. No reutilizar aquellos pasos manuales
-como si siguieran pendientes.
-
-6.3. Base flexible — propuesta #2, incorporada y publicada
-
-https://github.com/GSJoker95/financer/pull/2
-Rama de implementación: codex/estructura-flexible
-Commit de implementación: 2629fd87b72f28bc0609308310a0ada01573f495
-Commit de incorporación: 17307030ce6987eae0ed0d7b1c760ac67475f09a
-
-Cambios realizados:
-- Separación entre modelo de categorías, acceso a datos, interfaz y sesión.
-- Árbol de categorías por ID y relación padre/hijo que conserva todos los niveles.
-- Detección de ciclos, padres ausentes e identificadores repetidos, sin reparar
-  silenciosamente los datos ni ocultar ramas.
-- Navegación con ruta superior y recuperación al recargar, por usuario y pestaña.
-- Crear, renombrar y eliminar subcategorías; bloqueo de borrado de padres con hijos.
-- Pantalla común de plataformas con creación, edición y eliminación persistentes.
-- Confirmación de filas afectadas: cero filas no se presenta como éxito.
-- Nombres vacíos o demasiado largos rechazados; comprobación local de duplicados.
-- Nombres introducidos mostrados como texto, sin ejecutar HTML.
-- Bloqueo de envíos repetidos durante una escritura y formulario conservado si falla.
-- Uso de la fila devuelta por el guardado, evitando una recarga posterior obligatoria.
-- Carga paginada de categorías y plataformas, filtrada por propietario.
-- Limpieza de la interfaz al salir o cambiar de cuenta y descarte de respuestas
-  tardías de una sesión anterior.
-- Mensajes recuperables cuando falla la conexión, el CDN o la carga de datos.
-- Corrección del nombre Financer y retirada de avisos de demostración desactualizados.
-- Pruebas unitarias, pruebas de navegador, dependencias fijadas y GitHub Actions.
-- README, AGENTS, Control_Cambios y guías de arquitectura/verificación.
-
-Se mantuvieron HTML, CSS, JavaScript, Supabase y el alojamiento estático.
-No se migró a un framework ni se cambiaron tablas, políticas o registros financieros.
-No se crean estrategias ni otros registros automáticamente al iniciar sesión.
-
-7. ORGANIZACIÓN ACTUAL DEL CÓDIGO
-
-index.html:
-Estructura de pantallas, acceso, menú, ruta, mensajes y editor. Carga los scripts
-explícitamente en orden. No necesita compilación.
-
-css/estilos.css:
-Presentación responsive, formularios, mensajes, estados de foco y pantallas móviles.
-Se conservó el diseño base; no se hizo un rediseño visual completo.
-
-js/supabase-config.js:
-Crea el cliente de Supabase con la URL y clave pública del proyecto. Si el CDN
-no está disponible, permite mostrar un error recuperable. No contiene claves privadas.
-
-js/modelo.js:
-Funciones independientes del navegador y la base de datos. Construye el árbol,
-obtiene rutas, valida nombres/duplicados y sanea navegación. Usa recorridos
-iterativos para no depender de la pila de llamadas en árboles profundos.
-Las raíces Liquidez e Inversiones se localizan por sus nombres normalizados;
-la interfaz las protege de edición y borrado. Un identificador funcional que no
-dependiese del nombre requeriría un diseño de esquema posterior.
-
-js/estrategias.js:
-Describe los cuatro recorridos Crypto acordados. Es un contrato de extensión:
-NO implementa todavía los formularios ni el recorrido completo Plataforma/Red/Posición.
-
-js/datos.js:
-Repositorio al que se inyectan el cliente Supabase y el ID del usuario verificado.
-Lee categorías y plataformas en páginas de 500 filas y confirma las escrituras
-con select(...).single(). Envía propietario en las creaciones y filtra por él
-las lecturas y modificaciones. Las políticas del servidor siguen siendo la
-protección efectiva; los filtros del frontend no sustituyen RLS.
-
-js/interfaz.js:
-Construye las pantallas, la navegación y las operaciones de categorías/plataformas.
-Actualiza la copia local con la fila que confirma el servidor. Respeta los errores
-de relaciones y no elimina en cascada. No tiene formularios financieros de posiciones.
-
-js/acceso.js:
-Comprueba el usuario con getUser(), gestiona acceso/salida y reintentos, atiende
-cambios de sesión y descarta respuestas obsoletas. Las consultas nuevas se difieren
-fuera del callback de Auth para evitar bloqueos. No vuelca datos privados a consola.
-
-Los scripts se encapsulan y exponen interfaces en globalThis.Financer. Se retiraron
-las colecciones y funciones globales sueltas que mezclaban responsabilidades.
-
-Otros archivos:
-- package.json y package-lock.json: herramientas de desarrollo reproducibles.
-  Node >=20; SDK de pruebas Supabase 2.95.3; Playwright 1.62.1.
-  Node no es necesario para servir la aplicación estática.
-- scripts/check-js.cjs: revisión de sintaxis.
-- tests/modelo.test.cjs y tests/datos.test.cjs: 11 pruebas de modelo y repositorio.
-- tests/browser.cjs: SDK real con toda la red interceptada y API ficticia.
-- .github/workflows/comprobaciones.yml: comprobaciones de desarrollo y propuestas.
-- docs/Arquitectura.md: diseño técnico y acuerdos funcionales.
-- docs/Verificacion.md: comprobaciones manuales numeradas.
-- AGENTS.md: instrucciones de trabajo para Codex.
-- Control_Cambios.md: resumen de entregas y recuperación.
-
-8. BASE DE DATOS: QUÉ SE VERIFICÓ Y QUÉ NO
-
-Durante la fase técnica se pudo acceder al proyecto que coincide con la URL del
-frontend y se inspeccionó su estructura en lectura. Existen estas tablas:
-- bloques: categorías con ID, propietario, nombre y padre opcional.
-- plataformas: catálogo compartido por usuario.
-- productos: bloque_id, plataforma_id opcional, nombre y configuracion JSON.
-- movimientos: operaciones asociadas a productos, con fecha/tipo/importe/moneda/detalles.
-
-La existencia de productos y movimientos en el esquema NO significa que sus
-formularios estén implementados en la aplicación.
-
-Las cuatro tablas tienen RLS activada y políticas de lectura, creación, actualización
-y eliminación por usuario_id. UPDATE tiene USING y WITH CHECK. La propiedad tiene
-valor por defecto auth.uid(). Hay relaciones ON DELETE RESTRICT que evitan borrar
-categorías/plataformas/productos con elementos dependientes. Los triggers comprueban
-la propiedad de las relaciones y evitan ciclos entre categorías, sin SECURITY DEFINER.
-
-Se realizó una transacción de solo lectura con rol authenticated y un sujeto
-ficticio: no vio registros de ninguna de las cuatro tablas. No se crearon cuentas
-ni se hicieron escrituras sobre los registros reales para probar el frontend.
-La autenticación y persistencia con la cuenta del propietario siguen pendientes
-de comprobación manual. No afirmar que se probaron dos cuentas reales.
-
-No se han ejecutado migraciones, cambiado permisos ni hecho restauraciones.
-Los futuros campos específicos de producto pueden aprovechar configuracion JSON,
-preservando propiedades desconocidas, pero deben diseñarse antes de escribirlos.
-No convertir ese objeto en sustituto de las relaciones y reglas de integridad.
-La comprobación de duplicados de nombre es local: no garantiza exclusión entre
-pestañas concurrentes. No se añadió una restricción SQL única sin estudiar los datos.
-
-9. PRUEBAS REALIZADAS Y PUBLICACIÓN
-
-Resultados de la entrega técnica:
-- Sintaxis de los seis JS: correcta.
-- 11 pruebas de modelo/repositorio: pasan.
-- Árbol de 10.000 niveles, ciclos, padres ausentes, navegación inválida,
-  paginación, propiedad y escrituras sin filas: comprobados.
-- Chromium a 1280 y 390 px: acceso simulado, navegación, cinco niveles visibles,
-  crear/editar/eliminar, cancelar, recarga, duplicados, fallos, restricciones,
-  texto malicioso, cambio de cuenta y salida entre pestañas: pasan.
-- CDN ausente, sessionStorage bloqueado y respuesta tardía tras salir: comprobados.
-- Se utilizó la versión real del SDK con una API ficticia interceptando TODA la red.
-  Esa persistencia tras recarga es simulada, no una escritura real en Supabase.
-- git diff --check: sin incidencias.
-- GitHub Actions de la propuesta y del commit incorporado: éxito.
-  Ejecución de desarrollo: https://github.com/GSJoker95/financer/actions/runs/42537285592
-- Cloudflare confirmó despliegue correcto del commit 17307030...
-  URL fija de esa entrega: https://1e2ccea9.financer-pruebas.pages.dev/
-  URL de pruebas habitual: https://financer-pruebas.pages.dev/
-- Se contrastaron archivos publicados con los locales probados y se comprobó la
-  pantalla de acceso en navegador en ordenador y móvil, sin errores JavaScript.
-  No se inició sesión con la cuenta real del propietario.
-
-Comandos de comprobación técnica del repositorio:
-  npm ci --ignore-scripts
-  npm run check
-  npm test
-  npx playwright install chromium
-  npm run test:browser
-  git diff --check
-
-Si Chromium ya está instalado, la prueba admite CHROMIUM_PATH. Las pruebas no
-necesitan secretos ni cuentas reales. La aplicación normal, en cambio, sí conecta
-con el Supabase configurado: no confundirla con el entorno de pruebas interceptadas.
-
-10. ESTADO FUNCIONAL Y TRABAJO PENDIENTE
-
-IMPLEMENTADO Y PROBADO EN SIMULACIÓN:
-- Base de acceso y sesión.
-- Categorías/subcategorías de profundidad flexible.
-- Gestión común de plataformas.
-- Persistencia mediante el repositorio y recuperación de navegación.
-- Manejo de errores y comprobaciones automáticas.
-
-VERIFICADO EN SERVICIOS REALES:
-- Repositorio, ramas, commits y propuestas incorporadas.
-- Esquema, políticas y relaciones de Supabase en lectura.
-- Consulta de aislamiento para un sujeto ficticio.
-- CI y publicación Cloudflare; pantalla pública de acceso.
-
-PENDIENTE:
-- Comprobar acceso y escrituras con la cuenta real mediante elementos de prueba.
-- Definir los campos mínimos por estrategia con el propietario.
-- Implementar registro, edición y consulta de posiciones activas.
-- Implementar los recorridos específicos y formularios de plataforma/red/activo/par
-  o Trade, conservando sus diferencias y compartiendo las entidades comunes.
-- Acordar importes, cantidades, fechas, valoraciones, moneda y fórmulas antes de
-  calcular patrimonio o rentabilidad. No decidirlos por intuición.
-- Resultados, Gastos y Objetivos.
-- Tratamiento de cierres, histórico futuro y exportaciones, cuando se acuerden.
-
-El propietario pidió evitar entrar en demasiados detalles funcionales de golpe.
-No insistir ahora en resolver cierres/Resultados para avanzar en posiciones activas.
-Las mejoras de accesibilidad, protección y mantenibilidad ya realizadas no equivalen
-a un producto financiero terminado.
-
-11. CÓMO CONTINUAR EN OTRO CHAT
-
-1. Leer este archivo y AGENTS.md; después docs/Arquitectura.md y Control_Cambios.md.
-2. Confirmar acceso al repositorio y el SHA actual de desarrollo-v1.8. Contrastar
-   código y estado remoto; este documento no prueba cambios posteriores a su fecha.
-3. Respetar los respaldos existentes y crear uno antes del siguiente cambio significativo.
-4. Comprobar con el propietario el acceso real a la web de pruebas, siguiendo
-   docs/Verificacion.md. No solicitar contraseñas en el chat.
-5. Preparar el primer formulario de posiciones activas después de preguntar solo
-   los campos o reglas indispensables que falten por definir.
-6. Implementar y probar por entregas pequeñas; registrar aquí cada indicación nueva,
-   el cambio, sus pruebas, limitaciones, respaldo y recuperación.
-
-Estimación comunicada al propietario: aproximadamente 20–30 % de una primera versión
-centrada en posiciones activas y otras 3–5 sesiones de trabajo similares a la técnica.
-Es una orientación, no una medición ni compromiso de fecha; excluye Resultados,
-Gastos, Objetivos y cálculos completos. Revisarla al definir los formularios.
-
-12. REGISTRO DE INDICACIONES Y CAMBIOS POSTERIORES
-
-2026-11-09 — Reglas expresas tras la entrega técnica:
-- Crear versiones de respaldo antes de cambios significativos para poder volver atrás.
-- Preguntar sobre dudas de estructura antes de implementarlas.
-- Mantener continuidad entre chats mediante documentación; no prometer que otro chat
-  hereda automáticamente conversaciones o memoria.
-
-2026-11-09 — Documento de continuidad solicitado por el propietario:
-- Petición: crear en GitHub un archivo de texto llamado Codex_Financer que explique
-  la estructura, todo el trabajo realizado y cómo se ha hecho.
-- Aclaración posterior: registrar en ese mismo documento cada cambio de código o
-  estructura y cada indicación suya que les afecte, para enviarlo a otra IA o chat.
-- Implementación de esta entrega: Codex_Financer.txt, enlace y reglas permanentes en
-  AGENTS.md y actualización de Control_Cambios.md.
-- Respaldo previo creado: respaldo-v1.8.9 en
-  17307030ce6987eae0ed0d7b1c760ac67475f09a.
-- Cambio solo documental: no modifica comportamiento ni datos. Verificación de texto,
-  coherencia con código/historial y diferencias Git. No se añaden tests para prosa.
-- Recuperación: revertir la propuesta documental; la base técnica queda conservada
-  en la rama de respaldo. No hace falta revertir base de datos.
-
-PLANTILLA PARA LAS SIGUIENTES ENTRADAS (añadir al final, manteniendo el resumen vigente):
-Fecha y nombre de la entrega:
-Indicación del propietario o problema observado:
-Estado: idea / pendiente de aclarar / acordado / implementado / comprobado.
-Decisiones aprobadas y dudas todavía abiertas:
-Respaldo previo: referencia y SHA:
-Rama y SHA de origen:
-Archivos y cambios realizados; explicación de cómo funcionan:
-Cambios de datos/esquema y copia de seguridad, si corresponde:
-Pruebas, resultado y limitaciones (simulación frente a servicios reales):
-Propuesta/commits de implementación e incorporación, cuando sean conocidos:
-URL de pruebas y commit publicado, si se verifican:
-Cómo deshacer y qué no revierte el respaldo de código:
-Siguiente paso:
+CODEX_FINANCER — PETICIONES SOBRE LA ESTRUCTURA DE FINANCER
+Actualizado: 9 de noviembre de 2026.
+
+FINALIDAD Y FORMATO
+Este documento recoge únicamente las instrucciones del propietario que afectan
+a la estructura acordada, incluyendo cómo se documenta y versiona el proyecto.
+Cada entrada distingue LO QUE PIDES, LO QUE ENTIENDO y LO QUE HAGO.
+Los detalles técnicos, comandos, pruebas y publicaciones se consultan en el propio
+código, docs/Arquitectura.md, docs/Documentacion_y_Migracion.md y Control_Cambios.md.
+Las peticiones nuevas se añaden sin convertir ideas o dudas en requisitos aprobados.
+Si hay una duda de estructura o funcionamiento, se pregunta antes de implementarla.
+
+1. FINALIDAD DEL PROYECTO
+LO QUE PIDES:
+Financer debe permitir registrar y consultar finanzas personales: movimientos,
+rentabilidades, posiciones, inversiones, resultados y objetivos. Quieres continuar
+el proyecto existente y obtener una aplicación funcional sin necesitar programar.
+LO QUE ENTIENDO:
+La estructura debe admitir módulos financieros que se desarrollarán por fases,
+con una visión global del patrimonio y un detalle por elemento.
+LO QUE HAGO:
+Mantengo los módulos previstos y separo sus responsabilidades técnicas. El estado
+actual permite organizar categorías y plataformas. Los formularios de posiciones,
+los cálculos y los módulos financieros posteriores todavía están pendientes.
+
+2. BASE DE TRABAJO Y DECISIONES TÉCNICAS
+LO QUE PIDES:
+Usar la rama actual desarrollo-v1.8 en lugar del respaldo V1.8.7 que proponía el ZIP.
+Autorizas las reparaciones y los cambios técnicos necesarios, pero quieres que te
+pregunte ante dudas sobre la estructura antes de resolverlas por intuición.
+LO QUE ENTIENDO:
+Debo partir del trabajo real y conservar sus referencias. La autorización técnica
+no equivale a inventar fórmulas o requisitos financieros.
+LO QUE HAGO:
+He reparado y organizado la base existente, manteniendo HTML, CSS, JavaScript y
+Supabase. La rama desarrollo-v1.8 se renombra a financer_V0 conforme a la petición
+posterior de esta misma lista. Los cambios futuros continúan desde V0.
+
+3. CATEGORÍAS Y PROFUNDIDAD VARIABLE
+LO QUE PIDES:
+Poder crear subcategorías dentro de otras subcategorías sin fijar un límite común.
+Crypto necesita más subdivisiones; las demás ramas probablemente serán más cortas.
+LO QUE ENTIENDO:
+No debe imponerse un recorrido de igual profundidad a todos los tipos de inversión.
+LO QUE HAGO:
+Uso categorías relacionadas por ID y padre, con navegación que conserva todos los
+niveles. La base funcional sigue Patrimonio total, Liquidez e Inversiones, con Bolsa,
+Crypto, Préstamos y Cuentas remuneradas; Resultados, Gastos y Objetivos siguen previstos.
+
+4. PLATAFORMAS COMPARTIDAS
+LO QUE PIDES:
+Que una misma plataforma pueda utilizarse para productos de varias categorías,
+por ejemplo acciones y Crypto, sin registrarla dos veces.
+LO QUE ENTIENDO:
+La plataforma es una entidad compartida del usuario, no una copia nueva por categoría.
+LO QUE HAGO:
+He añadido un catálogo común de plataformas con creación, edición y borrado protegido
+por sus relaciones. Las asociaciones concretas a posiciones se implementarán con
+sus formularios; no están completas por tener ya disponible el catálogo.
+
+5. RECORRIDOS DE CRYPTO Y FUTURAS ESTRATEGIAS
+LO QUE PIDES:
+- Pools de Liquidez -> Plataforma -> Red -> Par.
+- Hold -> Red -> Crypto.
+- Farmeo DEX -> Plataforma -> Trade.
+- Shorts -> Plataforma -> Red -> Trade.
+Cada estrategia tiene particularidades y deben poder incorporarse otras futuras.
+LO QUE ENTIENDO:
+Plataforma y Red son niveles opcionales según la estrategia. Los formularios y reglas
+no pueden ser idénticos por obligación. Añadir una estrategia con cálculos nuevos
+puede requerir programación, aunque la base permita nuevas categorías desde la web.
+LO QUE HAGO:
+He definido estos cuatro recorridos como contratos de extensión en estrategias.js.
+El árbol ya admite distintas profundidades. Los formularios específicos y la
+navegación completa por plataforma/red/posición siguen pendientes de desarrollo.
+
+6. SIGNIFICADO DE TRADE Y POSICIONES INDEPENDIENTES
+LO QUE PIDES:
+Trade es una operación individual con apertura y cierre. No necesitas varias
+posiciones independientes sobre el mismo activo o par dentro de una misma estrategia,
+plataforma y red cuando esos niveles correspondan.
+LO QUE ENTIENDO:
+Debemos identificar correctamente cada posición sin confundir un Trade con un grupo
+de operaciones. La regla de unicidad necesita concretarse con el formulario real.
+LO QUE HAGO:
+Conservo esa definición para el diseño de posiciones. No he impuesto una clave única
+sobre nombres ni implementado formularios o datos financieros todavía no acordados.
+
+7. PRIORIDAD: POSICIONES ABIERTAS Y ACTIVAS
+LO QUE PIDES:
+Empezar por tus posiciones abiertas y activas, sin cargar operaciones pasadas que
+ya no estén activas. Decidir qué hacer al cerrar una posición cuando toque Resultados,
+sin entrar ahora en ese detalle; buscas algo funcional.
+LO QUE ENTIENDO:
+La primera versión debe centrarse en el registro actual. No debo exigir reconstruir
+histórico ni decidir por adelantado conservar o eliminar posiciones cerradas.
+LO QUE HAGO:
+He dejado el tratamiento de cierres y Resultados como pendiente. La siguiente fase
+funcional será acordar e implementar los campos mínimos de las posiciones activas.
+
+8. ALCANCE DE ESTE DOCUMENTO
+LO QUE PIDES:
+Registrar las indicaciones que afecten a la estructura propuesta, redactando lo que
+pides, lo que entiendo que necesitas y lo que hago, para continuar en otra IA o chat.
+LO QUE ENTIENDO:
+Este archivo debe ser un registro claro de peticiones y respuestas de diseño, no
+un volcado de toda la conversación, estimaciones de tiempo o logs de herramientas.
+LO QUE HAGO:
+He reorganizado este documento con esos tres apartados por petición. Las explicaciones
+del código y las pruebas quedan en sus archivos y documentos técnicos asociados.
+Las instrucciones del repositorio exigen mantener este formato en adelante.
+
+9. DOCUMENTACIÓN DEL CÓDIGO Y PORTABILIDAD
+LO QUE PIDES:
+Revisar todos los archivos y comentar cada línea de código explicando qué hace y
+por qué, dentro del propio código. Desde ahora cada instrucción nueva debe quedar
+comentada; si el formato no lo permite, usar un documento asociado existente o nuevo.
+Quieres que todo quede documentado para facilitar una migración de plataforma.
+LO QUE ENTIENDO:
+La explicación debe cubrir aplicación, pruebas, estilos y automatización, sin romper
+formatos como JSON ni modificar código de terceros o respaldos históricos.
+Documentar para migrar no autoriza a trasladar ahora el proyecto a otro proveedor.
+LO QUE HAGO:
+Añado comentarios en español a los JavaScript propios, HTML, CSS, YAML y reglas Git.
+Descomprimo visualmente los estilos sin cambiar sus propiedades. Los dos JSON se
+explican línea por línea en docs/Configuracion_Comentada.md, conservando su sintaxis.
+La guía docs/Documentacion_y_Migracion.md reúne el inventario, las dependencias,
+la instalación, el alojamiento y qué necesita un traslado futuro. Esta entrega no
+añade funciones financieras ni cambia los registros o el esquema de Supabase.
+
+10. NOMENCLATURA DE TRABAJO Y RESPALDOS
+LO QUE PIDES:
+Al terminar los comentarios, crear un respaldo llamado financer_V2 y cambiar el nombre
+de la rama de trabajo a financer_V0. Después de cada cambio significativo, crear
+financer_V3, financer_V4 y así sucesivamente, continuando siempre el trabajo en V0.
+LO QUE ENTIENDO:
+V0 es la rama viva de desarrollo; V2 y siguientes son instantáneas sucesivas que se
+conservan sin modificar. Los números de respaldo no obligan a cambiar versiones de
+paquetes ni a tratar los respaldos como ramas de desarrollo.
+LO QUE HAGO:
+Conservo además un respaldo previo a esta entrega. Tras verificar e incorporar la
+versión comentada, fijo financer_V2 a ese estado y renombro la rama de desarrollo
+existente a financer_V0, sin tocar main ni borrar los respaldos anteriores.
+Las comprobaciones y documentos pasan a utilizar V0 como referencia vigente.
+En adelante preservaré el último respaldo antes de trabajar y crearé el siguiente
+respaldo numerado al cerrar cada cambio significativo, una vez comprobado.
+Los registros de Supabase requieren su propio respaldo: Git conserva el código,
+no una copia de los datos financieros.
+
+FORMATO PARA AÑADIR UNA FUTURA PETICIÓN DE ESTRUCTURA
+Fecha y asunto:
+LO QUE PIDES: instrucción del propietario, sin añadir requisitos supuestos.
+LO QUE ENTIENDO: interpretación, límites y dudas que deban preguntarse.
+LO QUE HAGO: implementación real o estado pendiente, sin atribuir pruebas inexistentes.
