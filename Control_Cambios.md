@@ -18,7 +18,10 @@ anteriores como si hubieran sido probadas.
 
 ## Base flexible — 9 de noviembre de 2026
 
-- Estado: implementación y pruebas; incorporación autorizada por el propietario.
+- Estado: incorporada a `desarrollo-v1.8`; CI y despliegue Cloudflare correctos.
+- Propuesta: https://github.com/GSJoker95/financer/pull/2
+- Commit de implementación: `2629fd87b72f28bc0609308310a0ada01573f495`.
+- Incorporación: `17307030ce6987eae0ed0d7b1c760ac67475f09a`.
 - Base: `6409420ada5d67e3e36196bbeddaec534f973017` de `desarrollo-v1.8`.
 - Rama: `codex/estructura-flexible`.
 - Alcance: estructura de programación, navegación de profundidad flexible, gestión
@@ -35,9 +38,29 @@ anteriores como si hubieran sido probadas.
   de las cuatro tablas. No se han realizado escrituras ni login con la cuenta real.
 - Limitaciones: formularios de posiciones/redes y cálculos pendientes. Los recorridos
   Crypto están definidos como contratos de extensión, no como formularios terminados.
-- Publicación: no se modifica `main`; los despliegues de Cloudflare y la comprobación
-  final autenticada necesitan confirmación independiente de su configuración/URL.
+- Publicación verificada: https://financer-pruebas.pages.dev/
+  y https://1e2ccea9.financer-pruebas.pages.dev/ corresponden a esta entrega.
+  Pantalla pública de acceso comprobada; la prueba autenticada real sigue pendiente.
+  `main` permanece sin cambios.
 - Recuperación: revertir esta propuesta sobre desarrollo. No hay esquema que revertir.
   Las altas que el propietario haga desde la aplicación se conservan en Supabase.
 - Propuesta y commit final: consultar el historial Git de esta rama y su solicitud
   de cambio; no se escribe un SHA futuro dentro de su propio commit.
+
+
+## Contexto entre chats — 9 de noviembre de 2026
+
+- Petición del propietario: crear `Codex_Financer.txt` con estructura, trabajo
+  realizado, implementación y continuidad para otra IA o chat. Actualizarlo con
+  cada cambio de código/estructura y cada indicación del propietario que les afecte.
+- Respaldo previo: `respaldo-v1.8.9`, creado en
+  `17307030ce6987eae0ed0d7b1c760ac67475f09a`. Conserva código, no datos Supabase.
+- Origen: ese mismo commit de `desarrollo-v1.8`.
+- Rama de trabajo: `codex/documentacion-contexto`.
+- Archivos: `Codex_Financer.txt`, `AGENTS.md`, `Control_Cambios.md`.
+- Cambios: documento de continuidad; lectura/actualización obligatoria y reglas
+  de respaldo y aclaración de dudas en AGENTS; actualización del estado de la entrega #2.
+- Verificación: coherencia con el código/historial y `git diff --check`.
+  No se añade ni modifica código ejecutable; no se necesitan nuevas pruebas funcionales.
+- Base de datos: sin cambios.
+- Reversión: revertir esta propuesta documental; conservar intacto el respaldo previo.
